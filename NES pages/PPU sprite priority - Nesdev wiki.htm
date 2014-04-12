@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html dir="ltr" class="client-js" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>PPU sprite priority - Nesdev wiki</title>
+<meta charset="UTF-8">
+<meta name="generator" content="MediaWiki 1.20.2">
+<link rel="shortcut icon" href="http://wiki.nesdev.com/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://wiki.nesdev.com/w/opensearch_desc.php" title="Nesdev wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://wiki.nesdev.com/w/api.php?action=rsd">
+<link rel="alternate" type="application/atom+xml" title="Nesdev wiki Atom feed" href="http://wiki.nesdev.com/w/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="stylesheet" href="PPU%20sprite%20priority%20-%20Nesdev%20wiki_files/load_002.css">
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/monobook/IE60Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="/w/skins/monobook/IE70Fixes.css?303" media="screen" /><![endif]--><style>.mw-collapsible-toggle{float:right} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}
+/* cache key: nesdev_wiki-mw1_:resourceloader:filter:minify-css:7:4250852ed2349a0d4d0fc6509a3e7d4c */.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4C59A6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold}
+/* cache key: nesdev_wiki-mw1_:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="PPU%20sprite%20priority%20-%20Nesdev%20wiki_files/load.css">
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: nesdev_wiki-mw1_:resourceloader:filter:minify-css:7:b2ff0e5460847bfbc2a67ca6bf6f3969 */</style>
+
+<script src="PPU%20sprite%20priority%20-%20Nesdev%20wiki_files/load_004.php"></script><script src="PPU%20sprite%20priority%20-%20Nesdev%20wiki_files/load_005.php"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"PPU_sprite_priority","wgTitle":"PPU sprite priority","wgCurRevisionId":6106,"wgArticleId":55,"wgIsArticle":true,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":[],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"PPU_sprite_priority","wgRestrictionEdit":[],"wgRestrictionMove":[]});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"monobook","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,
+"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","watchToken":false});;},{},{});
+/* cache key: nesdev_wiki-mw1_:resourceloader:filter:minify-js:7:c89fc005766e312c555f83b307d08d63 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax"]);
+}</script><script type="text/javascript" src="PPU%20sprite%20priority%20-%20Nesdev%20wiki_files/load_003.php"></script><link href="PPU%20sprite%20priority%20-%20Nesdev%20wiki_files/FF2Fixes.css" rel="stylesheet" type="text/css">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-PPU_sprite_priority skin-monobook action-view">
+<div id="globalWrapper">
+<div id="column-content"><div id="content" class="mw-body-primary">
+	<a id="top"></a>
+	
+	<h1 id="firstHeading" class="firstHeading"><span dir="auto">PPU sprite priority</span></h1>
+	<div id="bodyContent" class="mw-body">
+		<div id="siteSub">From Nesdev wiki</div>
+		<div id="contentSub"></div>
+		<div id="jump-to-nav" class="mw-jump">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+		<!-- start content -->
+<div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><p>In the <a href="http://wiki.nesdev.com/w/index.php/PPU" title="PPU">NES PPU</a>, each sprite has two values that affect <b>priority</b>, or what appears behind what: the index of the sprite within <a href="http://wiki.nesdev.com/w/index.php/PPU_OAM" title="PPU OAM">OAM</a> (0 to 63), and the priority bit (<a href="http://wiki.nesdev.com/w/index.php/NES_PPU#Byte_2" title="NES PPU" class="mw-redirect">attribute 2</a> bit 5, set to 0 for front or 1 for back).
+</p><p>Putting a back-priority sprite at a lower OAM index than a 
+front-priority sprite can cover up the the front-priority sprite and let
+ the background show through.
+<a href="http://wiki.nesdev.com/w/index.php/Tricky-to-emulate_games" title="Tricky-to-emulate games"><i>Super Mario Bros. 3</i> uses this</a>
+ for power-ups sprouting from blocks, by putting a non-transparent 
+back-priority sprite "behind" the block at a low index and putting the 
+power-up at a higher index.
+(You can see the corners of the back-priority sprite when Mario hits a 
+note block in World 1-2, as the note block becomes more squared off.) 
+The advantage of this approach is that the power-up can be hidden behind
+ the block and still have front priority, meaning the area above the 
+block doesn't have to be pure bg pixels like in Super Mario Bros.
+</p><p>The Nintendo DS PPU handles priority the "obvious" way,<a rel="nofollow" class="external autonumber" href="http://nocash.emubase.de/gbatek.htm#dsvideoobjs">[1]</a> and some NES emulator developers initially think the NES PPU handles it the same way:
+</p>
+<ol><li> Front priority sprites in front
+</li><li> The background plane in the middle
+</li><li> Back priority sprites in back 
+</li></ol>
+<p>What really happens in the NES PPU is conceptually more like this:
+</p>
+<ol><li> During <a href="http://wiki.nesdev.com/w/index.php/PPU_sprite_evaluation" title="PPU sprite evaluation">sprite evaluation</a>
+ for each scanline (cycles 256 to 319), the eight frontmost sprites on 
+this line get drawn front (lower index) to back (higher index) into a 
+buffer, taking only the first opaque pixel that matches each X 
+coordinate. Priority does not affect ordering in this buffer but is 
+saved with each pixel.
+</li><li> The background gets drawn to a separate buffer.
+</li><li> For each pixel in the background buffer, the corresponding 
+sprite pixel replaces it only if the sprite pixel is opaque and front 
+priority.
+</li></ol>
+<p>The buffers don't actually exist as full-scanline buffers inside the 
+PPU but instead as a set of counters and shift registers. The above 
+logic is implemented a pixel at a time, as <a href="http://wiki.nesdev.com/w/index.php/PPU_rendering" title="PPU rendering">PPU rendering</a> explains.
+</p>
+<h2> <span class="mw-headline" id="Detailed_internals_of_the_sprite_priority_quirk"> Detailed internals of the sprite priority quirk </span></h2>
+<p>During sprite evaluation the PPU copies the sprites that are in y 
+range from the primary to the secondary OAM, from which eight internal 
+sprite output units are then initialized. These sprite output units are 
+wired such that the lowest-numbered unit that outputs a non-transparent 
+pixel always wins, regardless of front/back sprite priority and 
+regardless of what the background pixel at the corresponding location 
+is.
+</p><p>Hence, when a back-priority sprite is hidden behind non-bg 
+background pixels, it will still hide output from higher-numbered sprite
+ output units wherever it has a non-transparent pixel.
+</p>
+<!-- 
+NewPP limit report
+Preprocessor visited node count: 3/1000000
+Preprocessor generated node count: 8/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key nesdev_wiki-mw1_:pcache:idhash:55-0!*!0!*!*!*!* and timestamp 20140412070226 -->
+</div><div class="printfooter">
+Retrieved from "<a href="http://wiki.nesdev.com/w/index.php?title=PPU_sprite_priority&amp;oldid=6106">http://wiki.nesdev.com/w/index.php?title=PPU_sprite_priority&amp;oldid=6106</a>"</div>
+		<div id="catlinks" class="catlinks catlinks-allhidden"></div>		<!-- end content -->
+				<div class="visualClear"></div>
+	</div>
+</div></div>
+<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+				<li id="ca-nstab-main" class="selected"><a href="http://wiki.nesdev.com/w/index.php/PPU_sprite_priority" primary="1" context="subject" title="View the content page [alt-shift-c]" accesskey="c">Page</a></li>
+				<li id="ca-talk" class="new"><a href="http://wiki.nesdev.com/w/index.php?title=Talk:PPU_sprite_priority&amp;action=edit&amp;redlink=1" primary="1" context="talk" title="Discussion about the content page [alt-shift-t]" accesskey="t">Discussion</a></li>
+				<li id="ca-viewsource"><a href="http://wiki.nesdev.com/w/index.php?title=PPU_sprite_priority&amp;action=edit" primary="1" title="This page is protected.
+You can view its source [alt-shift-e]" accesskey="e">View source</a></li>
+				<li id="ca-history"><a href="http://wiki.nesdev.com/w/index.php?title=PPU_sprite_priority&amp;action=history" rel="archives" title="Past revisions of this page [alt-shift-h]" accesskey="h">History</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-createaccount"><a href="http://wiki.nesdev.com/w/index.php?title=Special:UserLogin&amp;returnto=PPU+sprite+priority&amp;type=signup">Create account</a></li>
+				<li id="pt-login"><a href="http://wiki.nesdev.com/w/index.php?title=Special:UserLogin&amp;returnto=PPU+sprite+priority" title="You are encouraged to log in; however, it is not mandatory [alt-shift-o]" accesskey="o">Log in</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+<a href="http://wiki.nesdev.com/w/index.php/Nesdev_Wiki" style="background-image: url(/w/skins/common/images/NESdevWikiLogo7.png);" title="Visit the main page"></a>
+	</div>
+	<div class="generated-sidebar portlet" id="p-navigation">
+		<h5>Navigation</h5>
+		<div class="pBody">
+			<ul>
+				<li id="n-Nesdev-main-page"><a href="http://wiki.nesdev.com/w/index.php/Nesdev">Nesdev main page</a></li>
+				<li id="n-Wiki-main-page"><a href="http://wiki.nesdev.com/w/index.php/Nesdev_Wiki">Wiki main page</a></li>
+				<li id="n-NES-reference-guide"><a href="http://wiki.nesdev.com/w/index.php/NES_reference_guide">NES reference guide</a></li>
+				<li id="n-Programming-guide"><a href="http://wiki.nesdev.com/w/index.php/Programming_guide">Programming guide</a></li>
+				<li id="n-Projects"><a href="http://wiki.nesdev.com/w/index.php/Projects">Projects</a></li>
+				<li id="n-Offline-HTML-version"><a href="http://wiki.nesdev.com/w/nesdevwiki_2014-03-13.zip" rel="nofollow">Offline HTML version</a></li>
+				<li id="n-NESdev-BBS"><a href="http://forums.nesdev.com/" rel="nofollow">NESdev BBS</a></li>
+				<li id="n-.23NESdev"><a href="http://wiki.nesdev.com/w/index.php/NESdev_IRC_channel">#NESdev</a></li>
+				<li id="n-recentchanges"><a href="http://wiki.nesdev.com/w/index.php/Special:RecentChanges" title="A list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/w/index.php" id="searchform">
+				<input name="title" value="Special:Search" type="hidden">
+				<input placeholder="Search" autocomplete="off" name="search" title="Search Nesdev wiki [alt-shift-f]" accesskey="f" id="searchInput" type="search">
+				<input name="go" value="Go" title="Go to a page with this exact name if exists" id="searchGoButton" class="searchButton" type="submit">&nbsp;
+				<input name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton" type="submit">
+			</form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="http://wiki.nesdev.com/w/index.php/Special:WhatLinksHere/PPU_sprite_priority" title="A list of all wiki pages that link here [alt-shift-j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="http://wiki.nesdev.com/w/index.php/Special:RecentChangesLinked/PPU_sprite_priority" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+				<li id="t-specialpages"><a href="http://wiki.nesdev.com/w/index.php/Special:SpecialPages" title="A list of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+				<li id="t-print"><a href="http://wiki.nesdev.com/w/index.php?title=PPU_sprite_priority&amp;printable=yes" rel="alternate" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li>
+				<li id="t-permalink"><a href="http://wiki.nesdev.com/w/index.php?title=PPU_sprite_priority&amp;oldid=6106" title="Permanent link to this revision of the page">Permanent link</a></li>
+			</ul>
+		</div>
+	</div>
+</div><!-- end of the left (by default at least) column -->
+<div class="visualClear"></div>
+<div id="footer">
+	<div id="f-poweredbyico">
+		<a href="http://www.mediawiki.org/"><img src="PPU%20sprite%20priority%20-%20Nesdev%20wiki_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" height="31" width="88"></a>
+	</div>
+	<ul id="f-list">
+		<li id="lastmod"> This page was last modified on 21 April 2013, at 19:35.</li>
+		<li id="viewcount">This page has been accessed 5,196 times.</li>
+		<li id="privacy"><a href="http://wiki.nesdev.com/w/index.php/Nesdev_wiki:Privacy_policy" title="Nesdev wiki:Privacy policy">Privacy policy</a></li>
+		<li id="about"><a href="http://wiki.nesdev.com/w/index.php/Nesdev_wiki:About" title="Nesdev wiki:About">About Nesdev wiki</a></li>
+		<li id="disclaimer"><a href="http://wiki.nesdev.com/w/index.php/Nesdev_wiki:General_disclaimer" title="Nesdev wiki:General disclaimer">Disclaimers</a></li>
+	</ul>
+</div>
+</div>
+<script>if(window.mw){
+mw.loader.state({"site":"loading","user":"missing","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.user","mediawiki.page.ready","mediawiki.searchSuggest"], null, true);
+}</script><script type="text/javascript" src="PPU%20sprite%20priority%20-%20Nesdev%20wiki_files/load_002.php"></script>
+<script src="PPU%20sprite%20priority%20-%20Nesdev%20wiki_files/load.php"></script>
+<!-- Served in 0.163 secs. --><div class="suggestions" style="display: none; font-size: 11.4667px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html>

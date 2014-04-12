@@ -51,11 +51,12 @@
 			
 _____________________________________________________________________________________________________________________________________________________________
 */
-`include "cartridge.v"
 
-module ppu( clk , cRegs);
-	input clk;
+module ppu( mainClk , cRegs);
+	input mainClk;
+	wire clk;
 	
+	ppuClockDivider( mainClk , clk );
 	input reg [7:0]cRegs[0:7];		/*	8 control registers that are used to control the PPU they are accessed  
 										from the CPU's address space in the addresses $2000 through $2007
 									*/
@@ -80,7 +81,7 @@ module ppu( clk , cRegs);
 									
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
 	initial begin
-	
+		// initializing the ppu
 	end
 	always@(cRegs) begin
 		// deal with the changes in the registers

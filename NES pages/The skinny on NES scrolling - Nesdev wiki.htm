@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html dir="ltr" class="client-js" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>The skinny on NES scrolling - Nesdev wiki</title>
+<meta charset="UTF-8">
+<meta name="generator" content="MediaWiki 1.20.2">
+<link rel="shortcut icon" href="http://wiki.nesdev.com/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://wiki.nesdev.com/w/opensearch_desc.php" title="Nesdev wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://wiki.nesdev.com/w/api.php?action=rsd">
+<link rel="alternate" type="application/atom+xml" title="Nesdev wiki Atom feed" href="http://wiki.nesdev.com/w/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="stylesheet" href="The%20skinny%20on%20NES%20scrolling%20-%20Nesdev%20wiki_files/load_002.css">
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/monobook/IE60Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="/w/skins/monobook/IE70Fixes.css?303" media="screen" /><![endif]--><style>.mw-collapsible-toggle{float:right} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}
+/* cache key: nesdev_wiki-mw1_:resourceloader:filter:minify-css:7:4250852ed2349a0d4d0fc6509a3e7d4c */.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4C59A6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold}
+/* cache key: nesdev_wiki-mw1_:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="The%20skinny%20on%20NES%20scrolling%20-%20Nesdev%20wiki_files/load.css">
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: nesdev_wiki-mw1_:resourceloader:filter:minify-css:7:b2ff0e5460847bfbc2a67ca6bf6f3969 */</style>
+
+<script src="The%20skinny%20on%20NES%20scrolling%20-%20Nesdev%20wiki_files/load_004.php"></script><script src="The%20skinny%20on%20NES%20scrolling%20-%20Nesdev%20wiki_files/load_005.php"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"The_skinny_on_NES_scrolling","wgTitle":"The skinny on NES scrolling","wgCurRevisionId":8485,"wgArticleId":628,"wgIsArticle":true,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":[],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"The_skinny_on_NES_scrolling","wgRestrictionEdit":[],"wgRestrictionMove":[]});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"monobook","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,
+"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","watchToken":false});;},{},{});
+/* cache key: nesdev_wiki-mw1_:resourceloader:filter:minify-js:7:c89fc005766e312c555f83b307d08d63 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax"]);
+}</script><script type="text/javascript" src="The%20skinny%20on%20NES%20scrolling%20-%20Nesdev%20wiki_files/load_003.php"></script><link href="The%20skinny%20on%20NES%20scrolling%20-%20Nesdev%20wiki_files/FF2Fixes.css" rel="stylesheet" type="text/css">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-The_skinny_on_NES_scrolling skin-monobook action-view">
+<div id="globalWrapper">
+<div id="column-content"><div id="content" class="mw-body-primary">
+	<a id="top"></a>
+	
+	<h1 id="firstHeading" class="firstHeading"><span dir="auto">The skinny on NES scrolling</span></h1>
+	<div id="bodyContent" class="mw-body">
+		<div id="siteSub">From Nesdev wiki</div>
+		<div id="contentSub"></div>
+		<div id="jump-to-nav" class="mw-jump">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+		<!-- start content -->
+<div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><table id="toc" class="toc"><tbody><tr><td><div id="toctitle"><h2>Contents</h2><span class="toctoggle">&nbsp;[<a href="#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Preface"><span class="tocnumber">1</span> <span class="toctext">Preface</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#PPU_registers"><span class="tocnumber">2</span> <span class="toctext">PPU registers</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Stuff_that_affects_register_contents"><span class="tocnumber">3</span> <span class="toctext">Stuff that affects register contents</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Explanation"><span class="tocnumber">3.1</span> <span class="toctext">Explanation</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Wrapping_around"><span class="tocnumber">4</span> <span class="toctext">Wrapping around</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Coarse_X_increment"><span class="tocnumber">4.1</span> <span class="toctext">Coarse X increment</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Y_increment"><span class="tocnumber">4.2</span> <span class="toctext">Y increment</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Tile_and_attribute_fetching"><span class="tocnumber">4.3</span> <span class="toctext">Tile and attribute fetching</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Examples"><span class="tocnumber">5</span> <span class="toctext">Examples</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Single_scroll"><span class="tocnumber">5.1</span> <span class="toctext">Single scroll</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Split_X_scroll"><span class="tocnumber">5.2</span> <span class="toctext">Split X scroll</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Split_X.2FY_scroll"><span class="tocnumber">5.3</span> <span class="toctext">Split X/Y scroll</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Quick_coarse_X.2FY_split"><span class="tocnumber">5.4</span> <span class="toctext">Quick coarse X/Y split</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></tbody></table>
+<h2> <span class="mw-headline" id="Preface"> Preface </span></h2>
+<p>"<a rel="nofollow" class="external text" href="http://nesdev.com/loopyppu.zip">The skinny on NES scrolling</a>" was posted by loopy on 1999-04-13 to what eventually became the NESdev Yahoo! Group.
+It was the first to publicly tell how exactly how the PPU uses addresses written to <a href="http://wiki.nesdev.com/w/index.php/PPU_registers" title="PPU registers">its ports</a>.
+After over a decade, it is <i>still believed accurate.</i>
+Some people get turned off by the fact that it's provided as monospaced 
+text inside a zipfile, that addresses have nothing to distinguish them 
+from years, and that the diagrams of what bits get copied where are 
+allegedly difficult to read.
+</p><p>The document that follows attempts to explain the mechanisms of 
+NES scrolling in detail, and is largely based on loopy's original notes.
+</p>
+<h2> <span class="mw-headline" id="PPU_registers"> PPU registers </span></h2>
+<p>If you aren't trying to split the screen, <a href="http://wiki.nesdev.com/w/index.php/PPU_scrolling" title="PPU scrolling">scrolling the background</a>
+ is as easy as writing the X and Y coordinates to $2005 and writing the 
+high bit of both coordinates to $2000.
+Programming or emulating a game that uses complex raster effects, on the
+ other hand, requires a complete understanding of how the various 
+address registers inside the PPU work.
+Here are the related registers:
+</p>
+<dl><dt>v</dt><dd> Current VRAM address (15 bits)
+</dd><dt>t</dt><dd> Temporary VRAM address (15 bits)
+</dd><dt>x</dt><dd> Fine X scroll (3 bits)
+</dd><dt>w</dt><dd> First or second write toggle (1 bit)
+</dd></dl>
+<p>The PPU uses the current VRAM address for both reading and writing 
+PPU memory thru $2007, and for fetching nametable data to draw the 
+background.
+As it's drawing the background, it updates the address to point to the 
+nametable data currently being drawn.
+Bits 10-11 hold the base address of the nametable minus $2000.
+Bits 12-14 are the Y offset of a scanline within a tile.
+</p><p>The 15 bit registers <i>t</i> and <i>v</i> are composed this way during rendering:
+</p>
+<pre>yyy NN YYYYY XXXXX
+||| || ||||| +++++-- coarse X scroll
+||| || +++++-------- coarse Y scroll
+||| ++-------------- nametable select
++++----------------- fine Y scroll
+</pre>
+<h2> <span class="mw-headline" id="Stuff_that_affects_register_contents"> Stuff that affects register contents </span></h2>
+<p>In the following, <i>d</i> refers to the data written to the port, and <i>A</i> through <i>H</i> to individual bits of a value.
+</p><p>$2005 and $2006 share a common write toggle, so that the first write has one behaviour, and the second write has another.
+After the second write, the toggle is reset to the first write behaviour. This toggle may be manually reset by reading
+$2002.
+</p>
+<ul><li> $2000 write:
+</li></ul>
+<pre>t: ...BA.. ........ = d: ......BA
+</pre>
+<ul><li> $2002 read:
+</li></ul>
+<pre>w:                  = 0
+</pre>
+<ul><li> $2005 first write (<i>w</i> is 0):
+</li></ul>
+<pre>t: ....... ...HGFED = d: HGFED...
+x:              CBA = d: .....CBA
+w:                  = 1
+</pre>
+<ul><li> $2005 second write (<i>w</i> is 1):
+</li></ul>
+<pre>t: CBA..HG FED..... = d: HGFEDCBA
+w:                  = 0
+</pre>
+<ul><li> $2006 first write (<i>w</i> is 0):
+</li></ul>
+<pre>t: .FEDCBA ........ = d: ..FEDCBA
+t: X...... ........ = 0
+w:                  = 1
+</pre>
+<ul><li> $2006 second write (<i>w</i> is 1):
+</li></ul>
+<pre>t: ....... HGFEDCBA = d: HGFEDCBA
+v                   = t
+w:                  = 0
+</pre>
+<p>(The below information is also available in <a href="http://wiki.nesdev.com/w/images/d/d1/Ntsc_timing.png" class="internal" title="Ntsc timing.png">this diagram</a> (<a href="http://wiki.nesdev.com/w/images/4/4f/Ppu.svg" class="internal" title="Ppu.svg">source Inkscape SVG file</a>).)
+</p>
+<ul><li> At dot 256 of each scanline:
+</li></ul>
+<dl><dd><dl><dd>If rendering is enabled, the PPU increments the vertical position in <i>v</i>.
+ The effective Y scroll coordinate is incremented, which is a complex 
+operation that will correctly skip the attribute table memory regions, 
+and wrap to the next nametable appropriately. See <a href="#Wrapping_around">Wrapping around</a> below.
+</dd></dl>
+</dd></dl>
+<ul><li> At dot 257 of each scanline:
+</li></ul>
+<dl><dd><dl><dd>If rendering is enabled, the PPU copies all bits related to horizontal position from <i>t</i> to <i>v</i>:
+</dd></dl>
+</dd></dl>
+<pre>v: ....F.. ...EDCBA = t: ....F.. ...EDCBA
+</pre>
+<ul><li> During dots 280 to 304 of the pre-render scanline (end of vblank):
+</li></ul>
+<dl><dd><dl><dd>If rendering is enabled, at the end of vblank, shortly after the horizontal bits are copied from <i>t</i> to <i>v</i> at dot 257, the PPU will repeatedly copy the vertical bits from <i>t</i> to <i>v</i> from dots 280 to 304, completing the full initialization of <i>v</i> from <i>t</i>:
+</dd></dl>
+</dd></dl>
+<pre>v: IHGF.ED CBA..... = t: IHGF.ED CBA.....
+</pre>
+<ul><li> Between dot 328 of a scanline, and 256 of the next scanline:
+</li></ul>
+<dl><dd><dl><dd>If rendering is enabled, the PPU increments the horizontal position in <i>v</i>
+ many times across the scanline, it begins at dots 328 and 336, and will
+ continue through the next scanline at 8, 16, 24... 240, 248, 256 (every
+ 8 dots across the scanline until 256). The effective X scroll 
+coordinate is incremented, which will wrap to the next nametable 
+appropriately. See <a href="#Wrapping_around">Wrapping around</a> below.
+</dd></dl>
+</dd></dl>
+<ul><li> $2007 reads and writes:
+</li></ul>
+<dl><dd><dl><dd>Outside of rendering, reads from or writes to $2007 will add either 1 or 32 to <i>v</i>
+ depending on the VRAM increment bit set via $2000. During rendering (on
+ the pre-render line and the visible lines 0-239, provided either 
+background or sprite rendering is enabled), it will update <i>v</i> in an odd way, triggering a <a href="#Coarse_X_increment">coarse X increment</a> and a <a href="#Y_increment">Y increment</a> simultaneously (with normal wrapping behavior). Internally, this is caused by the carry inputs to various sections of <i>v</i> being set up for rendering, and the $2007 access triggering a "load next value" signal for <b>all</b> of <i>v</i> (when not rendering, the carry inputs are set up to linearly increment <i>v</i>
+ by either 1 or 32). This behavior is not affected by the status of the 
+increment bit. The Young Indiana Jones Chronicles uses this for some 
+effects to adjust the Y scroll during rendering. If the $2007 access 
+happens to coincide with a standard VRAM address increment (either 
+horizontal or vertical), it will presumably <i>not</i> double-increment the relevant counter.
+</dd></dl>
+</dd></dl>
+<p>All of this info agrees with the tests Loopy has run on an NES console and Quietust's <a href="http://wiki.nesdev.com/w/index.php/File:Vramaddr.jpg" title="File:Vramaddr.jpg">analysis of a micrograph of the PPU die</a>.
+If there's something you don't agree with, please let <a rel="nofollow" class="external text" href="http://forums.nesdev.com/viewtopic.php?t=8962">the BBS</a> know so that a member can verify it.
+</p>
+<h3> <span class="mw-headline" id="Explanation"> Explanation </span></h3>
+<ul><li> The implementation of scrolling has two components. There are 
+two fine offsets, specifying what part of an 8x8 tile each pixel falls 
+on, and two coarse offsets, specifying which tile. Because each tile 
+corresponds to a single byte addressable by the PPU, during rendering 
+the coarse offsets reuse the same VRAM address register (<i>v</i>) that 
+is normally used to send and receive data from the PPU. Because of this 
+reuse, the two registers $2005 and $2006 both offer control over <i>v</i>, but $2005 is mapped in a more obscure way, designed specifically to be convenient for scrolling.
+</li><li> $2006 is simply to set the VRAM address register. This is why the second write will immediately set <i>v</i>;
+ it is expected you will immediately use this address to send data to 
+the PPU via $2007. The PPU memory space is only 14 bits wide, but <i>v</i> has an extra bit that is used for scrolling only. The first write to $2006 will clear this extra bit (for reasons not known).
+</li><li> $2005 is designed to set the scroll position before the start of the frame. This is why it does not immediately set <i>v</i>, so that it can be set at precisely the right time to start rendering the screen.
+</li><li> The high 5 bits of the X and Y scroll settings sent to $2005, 
+when combined with the 2 nametable select bits sent to $2000, make a 12 
+bit address for the next tile to be fetched within the nametable address
+ space $2000-2FFF. If set before the end of vblank, this 12 bit address 
+gets loaded directly into <i>v</i> precisely when it is needed to fetch the tile for the top left pixel to render.
+</li><li> The low 3 bits of X and Y sent to $2005 are the fine pixel offset within the 8x8 tile. The X component goes into the separate <i>x</i>
+ register, which just selects one of 8 pixels coming out of a set of 
+shift registers. The Y component goes into the high 3 bits of the <i>v</i>
+ register, where during rendering they are not used as part of the PPU 
+memory address (which is being overridden to use the nametable space 
+$2000-2FFF). Instead they count the lines until the coarse Y memory 
+address needs to be incremented (and wrapped appropriately when 
+nametable boundaries are crossed).
+</li></ul>
+<h2> <span class="mw-headline" id="Wrapping_around"> Wrapping around </span></h2>
+<p>The following pseudocode examples explain how wrapping is performed when incrementing components of <i>v</i>. This code is written for clarity, and is not optimized for speed.
+</p>
+<h3> <span class="mw-headline" id="Coarse_X_increment"> Coarse X increment </span></h3>
+<p>The coarse X component of <i>v</i> needs to be incremented when the next tile is reached.
+Bits 0-4 are incremented, with overflow toggling bit 10. This means that
+bits 0-4 count from 0 to 31 across a single nametable, and bit 10 selects the current nametable horizontally.
+</p>
+<pre>if ((<i>v</i> &amp; 0x001F) == 31) // if coarse X == 31
+  <i>v</i> &amp;= ~0x001F          // coarse X = 0
+  <i>v</i> ^= 0x0400           // switch horizontal nametable
+else
+  <i>v</i> += 1                // increment coarse X
+</pre>
+<h3> <span class="mw-headline" id="Y_increment"> Y increment </span></h3>
+<p>At dot 256 of each scanline,
+fine Y is incremented,
+overflowing to coarse Y,
+and finally adjusted to wrap among the nametables vertically.
+</p><p>Bits 12-14 are fine Y. Bits 5-9 are coarse Y. Bit 11 selects the vertical nametable.
+</p>
+<pre>if ((<i>v</i> &amp; 0x7000)&nbsp;!= 0x7000)        // if fine Y &lt; 7
+  <i>v</i> += 0x1000                      // increment fine Y
+else
+  <i>v</i> &amp;= ~0x7000                     // fine Y = 0
+  int <i>y</i> = (<i>v</i> &amp; 0x03E0) &gt;&gt; 5        // let <i>y</i> = coarse Y
+  if <i>y</i> == 29
+    <i>y</i> = 0                          // coarse Y = 0
+    <i>v</i> ^= 0x0800                    // switch vertical nametable
+  else if <i>y</i> == 31
+    <i>y</i> = 0                          // coarse Y = 0, nametable not switched
+  else
+    <i>y</i> += 1                         // increment coarse Y
+  <i>v</i> = (v &amp; ~0x03E0) | (<i>y</i> &lt;&lt; 5)     // put coarse Y back into <i>v</i>
+</pre>
+<p>Row 29 is the last row of tiles in a nametable, so to wrap to the 
+next nametable, when incrementing coarse Y from 29, the vertical 
+nametable is switch (toggle bit 11) and coarse Y wraps to row 0.
+</p><p>Coarse Y can be be set out of bounds (&gt;29), which will cause 
+the PPU to read the attribute data stored there as tile data. If coarse Y
+ is incremented from 31, it will wrap to 0, but the nametable will not 
+switch. For this reason, a write &gt;=240 to $2005 may appear as a 
+"negative" scroll value, where 1 or 2 rows of attribute data will appear
+ before the nametable's tile data is reached.
+</p>
+<h3> <span class="mw-headline" id="Tile_and_attribute_fetching"> Tile and attribute fetching </span></h3>
+<p>The high bits of <i>v</i> are used for fine Y during rendering, and 
+addressing nametable data only requires 12 bits, with the high 2 CHR 
+addres lines fixed to the 0x2000 region. The address to be fetched 
+during rendering can be deduced from <i>v</i> in the following way:
+</p>
+<pre> tile address      = 0x2000 | (<i>v</i> &amp; 0x0FFF)
+ attribute address = 0x23C0 | (<i>v</i> &amp; 0x0C00) | ((<i>v</i> &gt;&gt; 4) &amp; 0x38) | ((<i>v</i> &gt;&gt; 2) &amp; 0x07)
+</pre>
+<p>The low 12 bits of the attribute address are composed in the following way:
+</p>
+<pre> NN 1111 YYY XXX
+ || |||| ||| +++-- high 3 bits of coarse X (x/4)
+ || |||| +++------ high 3 bits of coarse Y (y/4)
+ || ++++---------- attribute offset (960 bytes)
+ ++--------------- nametable select
+</pre>
+<h2> <span class="mw-headline" id="Examples"> Examples </span></h2>
+<p>Below is an example of 6502 code that completely sets the scroll 
+register before the next scanline, indicating what happens to all 
+relevant variables described above, both before and after the 6502 
+instructions are executed.
+</p><p>Individual bits written to a PPU register are colour-coded to reflect where they end up in <i>t</i>.
+</p><p>Assume all 6502 code is run sequentially in the order shown, one instruction after the next.
+</p>
+<h3> <span class="mw-headline" id="Single_scroll"> Single scroll </span></h3>
+<p>If only one scroll setting is needed for the entire screen, this can 
+be done by writing $2000 once, and $2005 twice before the end of vblank.
+</p>
+<ol><li> The low two bits of $2000 select which of the four nametables to use.
+</li><li> The first write to $2005 specifies the X scroll, in pixels.
+</li><li> The second write to $2005 specifies the Y scroll, in pixels.
+</li></ol>
+<p>After this, do not make any writes to $2006 before the end of vblank, as they will overwrite the <i>t</i> register. The <i>v</i> register will be completely copied from <i>t</i> at the end of vblank, setting the scroll.
+</p><p>Note that the series of two writes to $2005 presumes the toggle 
+that specifies which write is taking place. If the state of the toggle 
+is unknown, reset it by reading from $2002 before the first write to 
+$2005.
+</p><p>Instead of writing $2000, the first write to $2006 can be used to
+ select the nametable, if this happens to be more convenient (usually it
+ is not because it will toggle <i>w</i>).
+</p>
+<h3> <span class="mw-headline" id="Split_X_scroll"> Split X scroll </span></h3>
+<p>The X scroll can be changed at the end of any scanline when the horizontal components of <i>v</i> get reloaded from <i>t</i>: Simply make one write to $2005 before the end of the line.
+</p>
+<ol><li> The first write to $2005 alters the horizontal scroll position. The fine <i>x</i> register (sub-tile offset) gets updated immediately, but the coarse horizontal component of <i>t</i> (tile offset) does not get updated until the end of the line.
+</li><li> An optional second write to $2005 is inconsequential; the changes it makes to <i>t</i> will be ignored at the end of the line. However, it will reset the write toggle <i>w</i> for any subsequent splits.
+</li></ol>
+<p>Like the single scroll example, reset the toggle by reading $2002 if 
+it is in an unknown state. Since a write to $2005 and a read from $2002 
+are equally expensive in both bytes and time, whether you use one or the
+ other to prepare for subsequent screen splits is up to you.
+</p><p>The first write to $2005 should usually be made as close to the 
+end of the line as possible, but before the start of hblank when the 
+coarse x scroll is copied from <i>t</i> to <i>v</i>. Because about 4 
+pixels of timing jitter are normally unavoidable, $2005 should be 
+written a little bit early (once hblank begins, it is too late). The 
+resulting glitch at the end of the line can be concealed by a line of 
+one colour pixels, or a sprite. To eliminate the glitch altogether, the 
+following more advanced X/Y scroll technique could be used to update <i>v</i> during hblank instead.
+</p>
+<h3> <span class="mw-headline" id="Split_X.2FY_scroll"> Split X/Y scroll </span></h3>
+<p>To split both the X and Y scroll on a scanline, we must perform four 
+writes to $2006 and $2005 alternately in order to completely reload <i>v</i>. Without the second write to $2006, only the horizontal portion of <i>v</i> will loaded from <i>t</i> at the end of the scanline. By writing twice to $2006, the second write causes an immediate full reload of <i>v</i> from <i>t</i>, allowing you to update the vertical scroll in the middle of the screen.
+</p><p>This is based on <a rel="nofollow" class="external text" href="http://forums.nesdev.com/viewtopic.php?p=78593#p78593">Drag's example on the nesdev forum</a>
+ where writes to PPU registers are done in the order of $2006, $2005, 
+$2005, $2006. This order of writes is important, understanding that the 
+write toggle for $2005 is shared with $2006. As always, if the state of 
+the toggle is unknown before beginning, read $2002 to reset it.
+</p><p>In this example we will perform two writes to each of $2005 and 
+$2006. We will set the X scroll (X), Y scroll (Y), and nametable select 
+(N) by writes to $2005 and $2006. This diagram shows where each value 
+fits into the four register writes.
+</p>
+<pre>N:&nbsp;%01
+X:&nbsp;%01111101 = $7D
+Y:&nbsp;%00111110 = $3E
+</pre>
+<pre>$2005.1 = X                                                          =&nbsp;%01111101 = $7D
+$2005.2 = Y                                                          =&nbsp;%00111110 = $3E
+$2006.1 = ((Y &amp;&nbsp;%11000000) &gt;&gt; 6) | ((Y &amp;&nbsp;%00000011) &lt;&lt; 4) | (N &lt;&lt; 2) =&nbsp;%00010100 = $14
+$2006.2 = ((X &amp;&nbsp;%11111000) &gt;&gt; 3) | ((Y &amp;&nbsp;%00111000) &lt;&lt; 2)            =&nbsp;%11101111 = $EF
+</pre>
+<p>However, since there is a great deal of overlap between the data sent
+ to $2005 and $2006, only the last write to any particular bit of <i>t</i> matters. This makes the first write to $2006 mostly redundant, and we can simplify its setup significantly:
+</p>
+<pre>$2006.1 = N &lt;&lt; 2                                                     =&nbsp;%00000100 = $04
+</pre>
+<p>There are other redundancies in the writes to $2005, but since it is 
+likely the original X and Y values are already available, these can be 
+left as an exercise for the reader.
+</p>
+<table class="wikitable">
+<tbody><tr>
+<th colspan="3" style="background-color:palegreen"> Before
+</th>
+<th rowspan="2"> Instructions
+</th>
+<th colspan="3" style="background-color:lightcoral"> After
+</th>
+<th rowspan="2"> Notes
+</th></tr>
+<tr>
+<th style="background-color:palegreen"> t
+</th>
+<th style="background-color:palegreen"> v
+</th>
+<th style="background-color:palegreen"> x
+</th>
+<th style="background-color:lightcoral"> t
+</th>
+<th style="background-color:lightcoral"> v
+</th>
+<th style="background-color:lightcoral"> x
+</th></tr>
+<tr>
+<td style="font-family:monospace; white-space:nowrap;"> ....... ........
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> ....... ........
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> ...
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> LDA #$04 (%00<span style="background-color:lime">000100</span>)<br>STA $2006
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> <span style="background-color:lightcoral">0</span><span style="background-color:lime">000100</span> ........
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> ....... ........
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> ...
+</td>
+<td> Bit 14 of <i>t</i> set to zero
+</td></tr>
+<tr>
+<td style="font-family:monospace; white-space:nowrap;"> 0000100 ........
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> ....... ........
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> ...
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> LDA #$3E (%<span style="background-color:lime">00</span><span style="background-color:yellow">111</span><span style="background-color:cyan">110</span>)<br>STA $2005
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> <span style="background-color:cyan">110</span>01<span style="background-color:lime">00</span> <span style="background-color:yellow">111</span>.....
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> ....... ........
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> ...
+</td>
+<td> Behaviour of 2nd $2005 write
+</td></tr>
+<tr>
+<td style="font-family:monospace; white-space:nowrap;"> 1100100 111.....
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> ....... ........
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> ...
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> LDA #$7D (%<span style="background-color:lime">01111</span><span style="background-color:yellow">101</span>)<br>STA $2005
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> 1100100 111<span style="background-color:lime">01111</span>
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> ....... ........
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> <span style="background-color:yellow">101</span>
+</td>
+<td> Behaviour of 1st $2005 write
+</td></tr>
+<tr>
+<td style="font-family:monospace; white-space:nowrap;"> 1100100 11101111
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> ....... ........
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> 101
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> LDA #$EF (%<span style="background-color:lime">11101111</span>)<br>STA $2006
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> 1100100 <span style="background-color:lime">11101111</span>
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> 1100100 11101111
+</td>
+<td style="font-family:monospace; white-space:nowrap;"> 101
+</td>
+<td>After <i>t</i> is updated, contents of <i>t</i> copied into <i>v</i>
+</td></tr></tbody></table>
+<p>Timing for this series of writes is important. Because the Y scroll in <i>v</i>
+ will be incremented at dot 256, you must either set it to the intended 
+Y-1 before dot 256, or set it to Y after dot 256. Many games that use 
+split scrolling have a visible glitch at the end of the line by timing 
+it early like this.
+</p><p>Alternatively you can set the intended Y after dot 256. The last 
+two writes ($2005.1 / $2006.2) can be timed to fall within hblank to 
+avoid any visible glitch. Hblank begins after dot 256, and ends at dot 
+320 when the first tile of the next line is fetched.
+</p><p>Because this method sets <i>v</i> immediately, it can be used to 
+set the scroll in the middle of the line. This is not normally 
+recommended, as the difficulty of exact timing and interaction of tile 
+fetches makes it difficult to do cleanly.
+</p>
+<h3> <span class="mw-headline" id="Quick_coarse_X.2FY_split"> Quick coarse X/Y split </span></h3>
+<p>Since it is the write to $2006 when <i>w</i>=1 that transfers the contents of <i>t</i> to <i>v</i>, it is not strictly necessary to perform all 4 writes as above, so long as one is willing to accept some trade-offs.
+</p><p>For example, if you only write to $2006 twice, you can update 
+coarse X, coarse Y, N, and the bottom 2 bits of fine y. The top bit of 
+fine y is cleared, and fine x is unchanged.
+</p><p>$2006's contents are in the same order as <i>t</i>, so you can affect the bits as:
+</p>
+<pre>   First      Second
+/¯¯¯¯¯¯¯¯¯\ /¯¯¯¯¯¯¯\
+0 0yy NN YY YYY XXXXX
+  ||| || || ||| +++++-- coarse X scroll
+  ||| || ++-+++-------- coarse Y scroll
+  ||| ++--------------- nametable select
+  +++------------------ fine Y scroll
+</pre>
+<p><br>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor visited node count: 70/1000000
+Preprocessor generated node count: 98/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key nesdev_wiki-mw1_:pcache:idhash:628-0!*!0!!en!*!* and timestamp 20140412085721 -->
+</div><div class="printfooter">
+Retrieved from "<a href="http://wiki.nesdev.com/w/index.php?title=The_skinny_on_NES_scrolling&amp;oldid=8485">http://wiki.nesdev.com/w/index.php?title=The_skinny_on_NES_scrolling&amp;oldid=8485</a>"</div>
+		<div id="catlinks" class="catlinks catlinks-allhidden"></div>		<!-- end content -->
+				<div class="visualClear"></div>
+	</div>
+</div></div>
+<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+				<li id="ca-nstab-main" class="selected"><a href="http://wiki.nesdev.com/w/index.php/The_skinny_on_NES_scrolling" primary="1" context="subject" title="View the content page [alt-shift-c]" accesskey="c">Page</a></li>
+				<li id="ca-talk"><a href="http://wiki.nesdev.com/w/index.php/Talk:The_skinny_on_NES_scrolling" primary="1" context="talk" title="Discussion about the content page [alt-shift-t]" accesskey="t">Discussion</a></li>
+				<li id="ca-viewsource"><a href="http://wiki.nesdev.com/w/index.php?title=The_skinny_on_NES_scrolling&amp;action=edit" primary="1" title="This page is protected.
+You can view its source [alt-shift-e]" accesskey="e">View source</a></li>
+				<li id="ca-history"><a href="http://wiki.nesdev.com/w/index.php?title=The_skinny_on_NES_scrolling&amp;action=history" rel="archives" title="Past revisions of this page [alt-shift-h]" accesskey="h">History</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-createaccount"><a href="http://wiki.nesdev.com/w/index.php?title=Special:UserLogin&amp;returnto=The+skinny+on+NES+scrolling&amp;type=signup">Create account</a></li>
+				<li id="pt-login"><a href="http://wiki.nesdev.com/w/index.php?title=Special:UserLogin&amp;returnto=The+skinny+on+NES+scrolling" title="You are encouraged to log in; however, it is not mandatory [alt-shift-o]" accesskey="o">Log in</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+<a href="http://wiki.nesdev.com/w/index.php/Nesdev_Wiki" style="background-image: url(/w/skins/common/images/NESdevWikiLogo7.png);" title="Visit the main page"></a>
+	</div>
+	<div class="generated-sidebar portlet" id="p-navigation">
+		<h5>Navigation</h5>
+		<div class="pBody">
+			<ul>
+				<li id="n-Nesdev-main-page"><a href="http://wiki.nesdev.com/w/index.php/Nesdev">Nesdev main page</a></li>
+				<li id="n-Wiki-main-page"><a href="http://wiki.nesdev.com/w/index.php/Nesdev_Wiki">Wiki main page</a></li>
+				<li id="n-NES-reference-guide"><a href="http://wiki.nesdev.com/w/index.php/NES_reference_guide">NES reference guide</a></li>
+				<li id="n-Programming-guide"><a href="http://wiki.nesdev.com/w/index.php/Programming_guide">Programming guide</a></li>
+				<li id="n-Projects"><a href="http://wiki.nesdev.com/w/index.php/Projects">Projects</a></li>
+				<li id="n-Offline-HTML-version"><a href="http://wiki.nesdev.com/w/nesdevwiki_2014-03-13.zip" rel="nofollow">Offline HTML version</a></li>
+				<li id="n-NESdev-BBS"><a href="http://forums.nesdev.com/" rel="nofollow">NESdev BBS</a></li>
+				<li id="n-.23NESdev"><a href="http://wiki.nesdev.com/w/index.php/NESdev_IRC_channel">#NESdev</a></li>
+				<li id="n-recentchanges"><a href="http://wiki.nesdev.com/w/index.php/Special:RecentChanges" title="A list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/w/index.php" id="searchform">
+				<input name="title" value="Special:Search" type="hidden">
+				<input placeholder="Search" autocomplete="off" name="search" title="Search Nesdev wiki [alt-shift-f]" accesskey="f" id="searchInput" type="search">
+				<input name="go" value="Go" title="Go to a page with this exact name if exists" id="searchGoButton" class="searchButton" type="submit">&nbsp;
+				<input name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton" type="submit">
+			</form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="http://wiki.nesdev.com/w/index.php/Special:WhatLinksHere/The_skinny_on_NES_scrolling" title="A list of all wiki pages that link here [alt-shift-j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="http://wiki.nesdev.com/w/index.php/Special:RecentChangesLinked/The_skinny_on_NES_scrolling" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+				<li id="t-specialpages"><a href="http://wiki.nesdev.com/w/index.php/Special:SpecialPages" title="A list of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+				<li id="t-print"><a href="http://wiki.nesdev.com/w/index.php?title=The_skinny_on_NES_scrolling&amp;printable=yes" rel="alternate" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li>
+				<li id="t-permalink"><a href="http://wiki.nesdev.com/w/index.php?title=The_skinny_on_NES_scrolling&amp;oldid=8485" title="Permanent link to this revision of the page">Permanent link</a></li>
+			</ul>
+		</div>
+	</div>
+</div><!-- end of the left (by default at least) column -->
+<div class="visualClear"></div>
+<div id="footer">
+	<div id="f-poweredbyico">
+		<a href="http://www.mediawiki.org/"><img src="The%20skinny%20on%20NES%20scrolling%20-%20Nesdev%20wiki_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" height="31" width="88"></a>
+	</div>
+	<ul id="f-list">
+		<li id="lastmod"> This page was last modified on 7 April 2014, at 07:28.</li>
+		<li id="viewcount">This page has been accessed 7,563 times.</li>
+		<li id="privacy"><a href="http://wiki.nesdev.com/w/index.php/Nesdev_wiki:Privacy_policy" title="Nesdev wiki:Privacy policy">Privacy policy</a></li>
+		<li id="about"><a href="http://wiki.nesdev.com/w/index.php/Nesdev_wiki:About" title="Nesdev wiki:About">About Nesdev wiki</a></li>
+		<li id="disclaimer"><a href="http://wiki.nesdev.com/w/index.php/Nesdev_wiki:General_disclaimer" title="Nesdev wiki:General disclaimer">Disclaimers</a></li>
+	</ul>
+</div>
+</div>
+<script>if(window.mw){
+mw.loader.state({"site":"loading","user":"missing","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.user","mediawiki.page.ready","mediawiki.searchSuggest"], null, true);
+}</script><script type="text/javascript" src="The%20skinny%20on%20NES%20scrolling%20-%20Nesdev%20wiki_files/load_002.php"></script>
+<script src="The%20skinny%20on%20NES%20scrolling%20-%20Nesdev%20wiki_files/load.php"></script>
+<!-- Served in 0.131 secs. --><div class="suggestions" style="display: none; font-size: 11.4667px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html>

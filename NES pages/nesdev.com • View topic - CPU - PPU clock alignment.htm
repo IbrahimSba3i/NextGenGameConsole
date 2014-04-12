@@ -1,0 +1,1569 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" xml:lang="en-gb" lang="en-gb"><head>
+
+<link rel="icon" href="http://forums.nesdev.com/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="http://forums.nesdev.com/favicon.ico" type="image/x-icon">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="content-language" content="en-gb">
+<meta http-equiv="content-style-type" content="text/css">
+<meta http-equiv="imagetoolbar" content="no">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+<title>nesdev.com • View topic - CPU - PPU clock alignment</title>
+
+<link rel="alternate" type="application/atom+xml" title="Feed - nesdev.com" href="http://forums.nesdev.com/feed.php"><link rel="alternate" type="application/atom+xml" title="Feed - News" href="http://forums.nesdev.com/feed.php?mode=news"><link rel="alternate" type="application/atom+xml" title="Feed - All forums" href="http://forums.nesdev.com/feed.php?mode=forums"><link rel="alternate" type="application/atom+xml" title="Feed - New Topics" href="http://forums.nesdev.com/feed.php?mode=topics"><link rel="alternate" type="application/atom+xml" title="Feed - Active Topics" href="http://forums.nesdev.com/feed.php?mode=topics_active"><link rel="alternate" type="application/atom+xml" title="Feed - Forum - NESdev" href="http://forums.nesdev.com/feed.php?f=2"><link rel="alternate" type="application/atom+xml" title="Feed - Topic - CPU - PPU clock alignment" href="http://forums.nesdev.com/feed.php?f=2&amp;t=6186">
+
+<link rel="stylesheet" href="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/style.css" type="text/css">
+
+<script type="text/javascript">
+// <![CDATA[
+
+
+function popup(url, width, height, name)
+{
+	if (!name)
+	{
+		name = '_popup';
+	}
+
+	window.open(url.replace(/&amp;/g, '&'), name, 'height=' + height + ',resizable=yes,scrollbars=yes,width=' + width);
+	return false;
+}
+
+function jumpto()
+{
+	var page = prompt('Enter the page number you wish to go to:', '1');
+	var per_page = '15';
+	var base_url = './viewtopic.php?f=2&amp;t=6186&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899';
+
+	if (page !== null && !isNaN(page) && page == Math.floor(page) && page > 0)
+	{
+		if (base_url.indexOf('?') == -1)
+		{
+			document.location.href = base_url + '?start=' + ((page - 1) * per_page);
+		}
+		else
+		{
+			document.location.href = base_url.replace(/&amp;/g, '&') + '&start=' + ((page - 1) * per_page);
+		}
+	}
+}
+
+/**
+* Find a member
+*/
+function find_username(url)
+{
+	popup(url, 760, 570, '_usersearch');
+	return false;
+}
+
+/**
+* Mark/unmark checklist
+* id = ID of parent container, name = name prefix, state = state [true/false]
+*/
+function marklist(id, name, state)
+{
+	var parent = document.getElementById(id);
+	if (!parent)
+	{
+		eval('parent = document.' + id);
+	}
+
+	if (!parent)
+	{
+		return;
+	}
+
+	var rb = parent.getElementsByTagName('input');
+	
+	for (var r = 0; r < rb.length; r++)
+	{
+		if (rb[r].name.substr(0, name.length) == name)
+		{
+			rb[r].checked = state;
+		}
+	}
+}
+
+
+
+// ]]>
+</script>
+</head>
+<body class="ltr">
+
+<a name="top"></a>
+
+<div id="wrapheader">
+
+	<div id="logodesc">
+	</div>
+
+	<div id="menubar">
+
+		<table cellspacing="0" width="100%">
+		<tbody><tr>
+			<td rowspan="2"><a href="http://forums.nesdev.com/index.php?sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/site_logo.gif" alt="" title=""></a></td>
+			<td align="center" width="100%"><h1>nesdev.com</h1><span class="gen">NES Development and Strangulation Records message boards</span></td>
+		</tr>
+		<tr>
+			<td align="center">
+				<a href="http://forums.nesdev.com/faq.php?sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_mini_faq.gif" alt="*" height="13" width="12"> FAQ</a>
+				&nbsp; &nbsp;<a href="http://forums.nesdev.com/search.php?sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_mini_search.gif" alt="*" height="13" width="12"> Search</a>
+				<br>	
+				 &nbsp;<a href="http://forums.nesdev.com/ucp.php?mode=register&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_mini_register.gif" alt="*" height="13" width="12"> Register</a>
+					&nbsp; &nbsp;<a href="http://forums.nesdev.com/ucp.php?mode=login&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_mini_login.gif" alt="*" height="13" width="12"> Login</a>&nbsp;
+			</td>
+		</tr>
+		</tbody></table>
+	</div>
+
+	<div id="datebar">
+		<table cellspacing="0" width="100%">
+		<tbody><tr>
+			<td class="gensmall"></td>
+			<td class="gensmall" align="right">It is currently Sat Apr 12, 2014 1:43 am<br></td>
+		</tr>
+		</tbody></table>
+	</div>
+
+</div>
+
+<div id="wrapcentre">
+
+	
+	<p class="searchbar">
+		<span style="float: left;"><a href="http://forums.nesdev.com/search.php?search_id=unanswered&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899">View unanswered posts</a> | <a href="http://forums.nesdev.com/search.php?search_id=active_topics&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899">View active topics</a></span>
+		
+	</p>
+	
+
+	<br style="clear: both;">
+
+	<table class="tablebg" style="margin-top: 5px;" cellpadding="0" cellspacing="1" width="100%">
+	<tbody><tr>
+		<td class="row1">
+			<p class="breadcrumbs"><a href="http://forums.nesdev.com/index.php?sid=5a341bc15baaa2ca7fe66ea8a4b09899">Board index</a> » <a href="http://forums.nesdev.com/viewforum.php?f=24&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899">NES / Famicom</a> » <a href="http://forums.nesdev.com/viewforum.php?f=2&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899">NESdev</a></p>
+			<p class="datetime">All times are UTC - 7 hours </p>
+		</td>
+	</tr>
+	</tbody></table>
+
+	<br>
+
+<div id="pageheader">
+	<h2><a class="titles" href="http://forums.nesdev.com/viewtopic.php?f=2&amp;t=6186&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899">CPU - PPU clock alignment</a></h2>
+
+
+	<p class="moderators">Moderator: <a href="http://forums.nesdev.com/memberlist.php?mode=group&amp;g=320&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899">Moderators</a></p>
+
+</div>
+
+<br clear="all"><br>
+
+<div id="pagecontent">
+
+	<table cellspacing="1" width="100%">
+	<tbody><tr>
+		<td align="left" valign="middle" nowrap="nowrap">
+		<a href="http://forums.nesdev.com/posting.php?mode=post&amp;f=2&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/button_topic_new.gif" alt="Post new topic" title="Post new topic"></a>&nbsp;<a href="http://forums.nesdev.com/posting.php?mode=reply&amp;f=2&amp;t=6186&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/button_topic_reply.gif" alt="Reply to topic" title="Reply to topic"></a>
+		</td>
+		
+			<td class="nav" valign="middle" nowrap="nowrap">&nbsp;Page <strong>1</strong> of <strong>2</strong><br></td>
+			<td class="gensmall" nowrap="nowrap">&nbsp;[ 16 posts ]&nbsp;</td>
+			<td class="gensmall" align="right" width="100%" nowrap="nowrap"><b><a href="#" onclick="jumpto(); return false;" title="Click to jump to page…">Go to page</a> <strong>1</strong><span class="page-sep">, </span><a href="http://forums.nesdev.com/viewtopic.php?f=2&amp;t=6186&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899&amp;start=15">2</a> &nbsp;<a href="http://forums.nesdev.com/viewtopic.php?f=2&amp;t=6186&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899&amp;start=15">Next</a></b></td>
+		
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr>
+		<td class="cat">
+			<table cellspacing="0" width="100%">
+			<tbody><tr>
+				<td class="nav" nowrap="nowrap">&nbsp;
+				<a href="http://forums.nesdev.com/viewtopic.php?f=2&amp;t=6186&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899&amp;view=print" title="Print view">Print view</a>
+				</td>
+				<td class="nav" align="right" nowrap="nowrap"><a href="http://forums.nesdev.com/viewtopic.php?f=2&amp;t=6186&amp;view=previous&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899">Previous topic</a> | <a href="http://forums.nesdev.com/viewtopic.php?f=2&amp;t=6186&amp;view=next&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899">Next topic</a>&nbsp;</td>
+			</tr>
+			</tbody></table>
+		</td>
+	</tr>
+
+	</tbody></table>
+
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	
+		<tbody><tr>
+			<th>Author</th>
+			<th>Message</th>
+		</tr>
+	<tr class="row1">
+
+			<td align="center" valign="middle">
+				<a name="p58517"></a>
+				<b class="postauthor">Bregalad</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p58517">CPU - PPU clock alignment</a></div><div style="float: right;"><a href="http://forums.nesdev.com/viewtopic.php?p=58517&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899#p58517"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Wed Mar 17, 2010 9:50 am&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile" valign="top">
+				<table align="center" cellspacing="4" width="150">
+			
+				<tbody><tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				<tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/file.jpg" alt="User avatar" height="60" width="60"></td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Fri Nov 12, 2004 2:49 pm<br><b>Posts:</b> 5914<br><b>Location:</b> Jongny, VD, Switzerland
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody">I want someone to confirm my troughs...
+<br>
+<br>NTSC : 1 CPU Cycle = 3 PPU Cycles, so there is 1 * 3 = 3 possible alignments on reset
+<br>
+<br>PAL : 5 CPU Cycles = 16 PPU Cycles, so there is 5 * 16 = 80 possible alignments on reset
+<br>
+<br>Is this right ? I just got surprised that a program I wrote using 
+raster effects behaves differently depending on resets and I want to 
+understand why.</div>
+
+					
+						<div class="postbody"><br>_________________<br>Life is complex: it has both real and imaginary components.</div>
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://forums.nesdev.com/memberlist.php?mode=viewprofile&amp;u=38&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row2">
+
+			<td align="center" valign="middle">
+				<a name="p58523"></a>
+				<b class="postauthor">blargg</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p58523"></a></div><div style="float: right;"><a href="http://forums.nesdev.com/viewtopic.php?p=58523&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899#p58523"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Wed Mar 17, 2010 11:28 am&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile" valign="top">
+				<table align="center" cellspacing="4" width="150">
+			
+				<tbody><tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				<tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/file_002.gif" alt="User avatar" height="69" width="60"></td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Mon Sep 27, 2004 8:33 am<br><b>Posts:</b> 3711<br><b>Location:</b> Central Texas, USA
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody">Nope, there are four for NTSC. Here are some notes I made a while back:
+<br>
+<br>After power/reset, PPU is randomly in one of four synchronizations 
+with CPU. This synchronization cannot be changed without 
+resetting/powering down. Trials of 50-60 power/resets were done to 
+determine likelihoods. The third synchronization is the preferred one 
+for emulators and test ROMs, due to the least special cases, and highest
+ likelihood.
+<br><div class="codetitle"><b>Code:</b></div><div class="codecontent">NMI&nbsp;
+ &nbsp; &nbsp;VBL&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Hit&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Overflow&nbsp; &nbsp; Likelihood<br>&nbsp; &nbsp; &nbsp; &nbsp; Reset&nbsp; &nbsp;Reset&nbsp; &nbsp;Set&nbsp; &nbsp; &nbsp;Reset&nbsp; &nbsp;Set<br>&nbsp;
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6819+&nbsp; 
+&nbsp;7502+&nbsp; &nbsp;6819+&nbsp; &nbsp;7290+&nbsp; &nbsp;Power&nbsp; 
+&nbsp;Reset<br>-------------------------------------------------------------<br>-1&nbsp;
+ &nbsp; &nbsp; -1&nbsp; &nbsp; &nbsp; -1&nbsp; &nbsp; &nbsp; 0&nbsp; 
+&nbsp; &nbsp; &nbsp;-1&nbsp; &nbsp; &nbsp; -1&nbsp; &nbsp; &nbsp; 
+27%&nbsp; &nbsp; &nbsp;26%<br>0&nbsp; &nbsp; &nbsp; &nbsp;-1&nbsp; 
+&nbsp; &nbsp; 0&nbsp; &nbsp; &nbsp; &nbsp;0&nbsp; &nbsp; &nbsp; 
+&nbsp;0&nbsp; &nbsp; &nbsp; &nbsp;0&nbsp; &nbsp; &nbsp; &nbsp;15%&nbsp; 
+&nbsp; &nbsp;22%<br>0&nbsp; &nbsp; &nbsp; &nbsp;0&nbsp; &nbsp; &nbsp; 
+&nbsp;0&nbsp; &nbsp; &nbsp; &nbsp;0&nbsp; &nbsp; &nbsp; &nbsp;0&nbsp; 
+&nbsp; &nbsp; &nbsp;0&nbsp; &nbsp; &nbsp; &nbsp;31%&nbsp; &nbsp; 
+&nbsp;30%<br>0&nbsp; &nbsp; &nbsp; &nbsp;0&nbsp; &nbsp; &nbsp; 
+&nbsp;0&nbsp; &nbsp; &nbsp; &nbsp;+1&nbsp; &nbsp; &nbsp; 0&nbsp; &nbsp; 
+&nbsp; &nbsp;0&nbsp; &nbsp; &nbsp; &nbsp;27%&nbsp; &nbsp; &nbsp;22%</div><br>Why
+ four instead of three? It's due to the PPU and CPU using separate 
+dividers. The CPU divides the master clock by 12, the PPU by 4. Thus, 
+the CPU has four possible positions it can be in relative to the PPU:<br><div class="codetitle"><b>Code:</b></div><div class="codecontent">PPU&nbsp; &nbsp;X---X---X---X---X---X---X---X---X---X---X-...<br>CPU 1 X-----------X-----------X-----------X-----...<br>CPU 2 -X-----------X-----------X-----------X----...<br>CPU 3 --X-----------X-----------X-----------X---...<br>CPU 4 ---X-----------X-----------X-----------X--...</div><br>I expect the same for the PAL system. The CPU divides the master clock by 16, the PPU by 5.<br><div class="codetitle"><b>Code:</b></div><div class="codecontent">PPU X----X----X----X----X----X----X----X----X----X----X----X----X----X----X----X----X--...<br>CPU X---------------X---------------X---------------X---------------X---------------X--...</div>
+<br>Look at that, there is only ONE overall synchronization for PAL. The
+ CPU hits all five sub-synchronizations from one clock to the next, 
+though. That makes it both easier and harder for emulation of all the 
+PAL special cases. It's easier in that there's only one to research, and
+ no choice of which to emulate, but harder in that all 5 
+sub-synchronizations must be checked for different effects.</div>
+
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://forums.nesdev.com/memberlist.php?mode=viewprofile&amp;u=17&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row1">
+
+			<td align="center" valign="middle">
+				<a name="p58536"></a>
+				<b class="postauthor">Bregalad</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p58536"></a></div><div style="float: right;"><a href="http://forums.nesdev.com/viewtopic.php?p=58536&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899#p58536"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Wed Mar 17, 2010 1:43 pm&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile" valign="top">
+				<table align="center" cellspacing="4" width="150">
+			
+				<tbody><tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				<tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/file.jpg" alt="User avatar" height="60" width="60"></td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Fri Nov 12, 2004 2:49 pm<br><b>Posts:</b> 5914<br><b>Location:</b> Jongny, VD, Switzerland
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody">Mmh... Thank you very much for your diagrams, they clarify things a lot.
+<br>
+<br>So I really don't understand why my program using a raster effect 
+has a line who seems to sometimes flicker, and sometimes be solid 
+depending on resets on my PAL NES. I didn't mean it to be a test demo or
+ anything - I just want to understand what is happening.
+<br>
+<br>I synchronize from VBlank NMI for the effect, so I don't see how this can be an issue (but maybe it can ?).</div>
+
+					
+						<div class="postbody"><br>_________________<br>Life is complex: it has both real and imaginary components.</div>
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://forums.nesdev.com/memberlist.php?mode=viewprofile&amp;u=38&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row2">
+
+			<td align="center" valign="middle">
+				<a name="p58546"></a>
+				<b class="postauthor">blargg</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p58546"></a></div><div style="float: right;"><a href="http://forums.nesdev.com/viewtopic.php?p=58546&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899#p58546"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Wed Mar 17, 2010 4:44 pm&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile" valign="top">
+				<table align="center" cellspacing="4" width="150">
+			
+				<tbody><tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				<tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/file_002.gif" alt="User avatar" height="69" width="60"></td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Mon Sep 27, 2004 8:33 am<br><b>Posts:</b> 3711<br><b>Location:</b> Central Texas, USA
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody">Interesting. Can you remove unncessary bits 
+from your code until you're left with a very small amount which still 
+displays different stable behavior depending on some power-up state? Or 
+wait, we didn't examine the possible CPU synchronizations with respect 
+to VBL. Basically consider all the possible number of PPU clocks between
+ two VBL settings, and see if any are multiples of 5. Let's say the PPU 
+frame length was 160000 (just some made-up value). That's a multiple of 
+16, so VBL would fall on the same relative CPU position every frame. It 
+could be something like this going on.</div>
+
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://forums.nesdev.com/memberlist.php?mode=viewprofile&amp;u=17&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row1">
+
+			<td align="center" valign="middle">
+				<a name="p58563"></a>
+				<b class="postauthor">jwdonal</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p58563">wow</a></div><div style="float: right;"><a href="http://forums.nesdev.com/viewtopic.php?p=58563&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899#p58563"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Thu Mar 18, 2010 12:02 am&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile" valign="top">
+				<table align="center" cellspacing="4" width="150">
+			
+				<tbody><tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				<tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/file.gif" alt="User avatar" height="50" width="50"></td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Sat Jun 27, 2009 11:05 pm<br><b>Posts:</b> 502<br><b>Location:</b> USA, NM
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody"><div class="quotetitle">blargg wrote:</div><div class="quotecontent">After
+ power/reset, PPU is randomly in one of four synchronizations with CPU. 
+This synchronization cannot be changed without resetting/powering down. 
+Trials of 50-60 power/resets were done to determine likelihoods. The 
+third synchronization is the preferred one for emulators and test ROMs, 
+due to the least special cases, and highest likelihood.</div>
+<br>Holy cow Blargg, you are frigin hard core with this RE'ing stuff.  
+Haha, that is awesome.  I'll tuck this post away for a much later date 
+when I get to the point of fine tuning my emulator and so I can add an 
+option to randomize these power up states to make it as close to the 
+original as possible.  THANKS! <img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_smile.gif" alt=":)" title="Smile"></div>
+
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://forums.nesdev.com/memberlist.php?mode=viewprofile&amp;u=3962&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row2">
+
+			<td align="center" valign="middle">
+				<a name="p58576"></a>
+				<b class="postauthor">blargg</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p58576"></a></div><div style="float: right;"><a href="http://forums.nesdev.com/viewtopic.php?p=58576&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899#p58576"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Thu Mar 18, 2010 9:25 am&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile" valign="top">
+				<table align="center" cellspacing="4" width="150">
+			
+				<tbody><tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				<tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/file_002.gif" alt="User avatar" height="69" width="60"></td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Mon Sep 27, 2004 8:33 am<br><b>Posts:</b> 3711<br><b>Location:</b> Central Texas, USA
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody">Bregalad, have you tested to be sure there 
+really is some state that can only be changed by resetting/powering down
+ and then up? That is, you power up, run your program many times, get 
+one particular visual effect, then reset, run your program, and 
+consistently get a different effect, then reset, and get another effect 
+consistently (or maybe the first again)?</div>
+
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://forums.nesdev.com/memberlist.php?mode=viewprofile&amp;u=17&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row1">
+
+			<td align="center" valign="middle">
+				<a name="p58578"></a>
+				<b class="postauthor" style="color: #AA0000">tepples</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p58578"></a></div><div style="float: right;"><a href="http://forums.nesdev.com/viewtopic.php?p=58578&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899#p58578"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Thu Mar 18, 2010 9:45 am&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile" valign="top">
+				<table align="center" cellspacing="4" width="150">
+			
+				<tbody><tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Sun Sep 19, 2004 11:12 pm<br><b>Posts:</b> 11684<br><b>Location:</b> NE Indiana, USA (NTSC)
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody">There's the effect of the PPU ignoring writes to half its registers for the first frame after reset.</div>
+
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://forums.nesdev.com/memberlist.php?mode=viewprofile&amp;u=9&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row2">
+
+			<td align="center" valign="middle">
+				<a name="p58579"></a>
+				<b class="postauthor">Dwedit</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p58579"></a></div><div style="float: right;"><a href="http://forums.nesdev.com/viewtopic.php?p=58579&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899#p58579"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Thu Mar 18, 2010 9:50 am&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile" valign="top">
+				<table align="center" cellspacing="4" width="150">
+			
+				<tbody><tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				<tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/file.png" alt="User avatar" height="100" width="68"></td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Fri Nov 19, 2004 7:35 pm<br><b>Posts:</b> 3064
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody">Synchronized to vblank from NMI?  Maybe do 
+some timed OAMDATA reads, then execute some instructions to get the 
+timing into a narrower range.</div>
+
+					
+						<div class="postbody"><br>_________________<br>Here come the fortune cookies!  Here come the fortune cookies!  They're wearing paper hats!</div>
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://forums.nesdev.com/memberlist.php?mode=viewprofile&amp;u=53&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row1">
+
+			<td align="center" valign="middle">
+				<a name="p58644"></a>
+				<b class="postauthor">Bregalad</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p58644"></a></div><div style="float: right;"><a href="http://forums.nesdev.com/viewtopic.php?p=58644&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899#p58644"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Fri Mar 19, 2010 1:20 pm&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile" valign="top">
+				<table align="center" cellspacing="4" width="150">
+			
+				<tbody><tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				<tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/file.jpg" alt="User avatar" height="60" width="60"></td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Fri Nov 12, 2004 2:49 pm<br><b>Posts:</b> 5914<br><b>Location:</b> Jongny, VD, Switzerland
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody"><div class="quotetitle">blargg wrote:</div><div class="quotecontent">Bregalad,
+ have you tested to be sure there really is some state that can only be 
+changed by resetting/powering down and then up? That is, you power up, 
+run your program many times, get one particular visual effect, then 
+reset, run your program, and consistently get a different effect, then 
+reset, and get another effect consistently (or maybe the first again)?</div>
+<br>Yes I am sure, it's like you said.
+<br>I did originally not meant to release it as a standalone, but anyway
+ it is for the good of NESdev, so I uploaded it 
+[url="http://jonathan.microclub.ch/dummy/logo%20%28E%29.nes"]here[/url].
+<br>The last line of the logo sometimes flicker, and is sometimes solid 
+depending on resets. (note : I think the flickering is due to the second
+ $2006 writes being sometimes slightly past cc 256, and as a result the 
+adress loaded is incorrect). It seems it never flickers on power on, and
+ other lines show fine.
+<br>
+<br>PS : Note that the point of this thread is NOT to solve the 
+flickering issue (which I know how to deal with) but to understand why 
+timing depends on resets.</div>
+
+					
+						<div class="postbody"><br>_________________<br>Life is complex: it has both real and imaginary components.</div>
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://forums.nesdev.com/memberlist.php?mode=viewprofile&amp;u=38&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row2">
+
+			<td align="center" valign="middle">
+				<a name="p58653"></a>
+				<b class="postauthor">blargg</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p58653"></a></div><div style="float: right;"><a href="http://forums.nesdev.com/viewtopic.php?p=58653&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899#p58653"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Fri Mar 19, 2010 3:51 pm&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile" valign="top">
+				<table align="center" cellspacing="4" width="150">
+			
+				<tbody><tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				<tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/file_002.gif" alt="User avatar" height="69" width="60"></td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Mon Sep 27, 2004 8:33 am<br><b>Posts:</b> 3711<br><b>Location:</b> Central Texas, USA
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody">It could still be that the initial timing 
+it's started at is what determines this flicker, rather than something 
+in hardware. The source code would help.</div>
+
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://forums.nesdev.com/memberlist.php?mode=viewprofile&amp;u=17&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row1">
+
+			<td align="center" valign="middle">
+				<a name="p58669"></a>
+				<b class="postauthor">Bregalad</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p58669"></a></div><div style="float: right;"><a href="http://forums.nesdev.com/viewtopic.php?p=58669&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899#p58669"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Sat Mar 20, 2010 2:11 am&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile" valign="top">
+				<table align="center" cellspacing="4" width="150">
+			
+				<tbody><tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				<tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/file.jpg" alt="User avatar" height="60" width="60"></td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Fri Nov 12, 2004 2:49 pm<br><b>Posts:</b> 5914<br><b>Location:</b> Jongny, VD, Switzerland
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody">Okay, <a href="http://jonathan.microclub.ch/dummy/logo.asm" class="postlink">I uploaded it</a>.</div>
+
+					
+						<div class="postbody"><br>_________________<br>Life is complex: it has both real and imaginary components.</div>
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://forums.nesdev.com/memberlist.php?mode=viewprofile&amp;u=38&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row2">
+
+			<td align="center" valign="middle">
+				<a name="p62253"></a>
+				<b class="postauthor">blargg</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p62253"></a></div><div style="float: right;"><a href="http://forums.nesdev.com/viewtopic.php?p=62253&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899#p62253"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Tue Jun 01, 2010 2:48 pm&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile" valign="top">
+				<table align="center" cellspacing="4" width="150">
+			
+				<tbody><tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				<tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/file_002.gif" alt="User avatar" height="69" width="60"></td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Mon Sep 27, 2004 8:33 am<br><b>Posts:</b> 3711<br><b>Location:</b> Central Texas, USA
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody">Been doing some PAL testing today (some info
+ already known, just verifying). 312 scanlines per frame, 341 PPU clocks
+ per scanline. 3.2 CPU clocks per PPU clock/0.3125 PPU clocks per CPU 
+clock. Every frame is 312*341 PPU clocks, regardless of rendering being 
+enabled; there's no skipped clock on odd rendered frames as on NTSC. 
+This means that every frame is 33247.5 CPU clocks. It also means that 
+there are <strong>eight</strong> PPU-CPU synchronizations that it can 
+power up/reset into! There are so many partly because of the lack of a 
+short frame as on NTSC. There are 16 different positions a PPU clock can
+ fall within a CPU clock, and since the frame length ends in half a CPU 
+clock, this is halved to 8, as it toggles between two synchronizations 
+every frame.</div>
+
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://forums.nesdev.com/memberlist.php?mode=viewprofile&amp;u=17&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row1">
+
+			<td align="center" valign="middle">
+				<a name="p62272"></a>
+				<b class="postauthor">Bregalad</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p62272"></a></div><div style="float: right;"><a href="http://forums.nesdev.com/viewtopic.php?p=62272&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899#p62272"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Wed Jun 02, 2010 5:05 am&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile" valign="top">
+				<table align="center" cellspacing="4" width="150">
+			
+				<tbody><tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				<tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/file.jpg" alt="User avatar" height="60" width="60"></td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Fri Nov 12, 2004 2:49 pm<br><b>Posts:</b> 5914<br><b>Location:</b> Jongny, VD, Switzerland
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody"><div class="quotetitle"><b>Quote:</b></div><div class="quotecontent"> It also means that there are eight PPU-CPU synchronizations that it can power up/reset into!</div>
+<br>You lost me there. You told me before there was only one. Altough I 
+definitely confirm a demo of mine, along with another old OAM reading 
+demo, acted differently between resets, so you last theory seems much 
+more realist to me.
+<br>
+<br>I still don't understand <em>why</em> there is 8 alignements.</div>
+
+					
+						<div class="postbody"><br>_________________<br>Life is complex: it has both real and imaginary components.</div>
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://forums.nesdev.com/memberlist.php?mode=viewprofile&amp;u=38&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row2">
+
+			<td align="center" valign="middle">
+				<a name="p62273"></a>
+				<b class="postauthor">blargg</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p62273"></a></div><div style="float: right;"><a href="http://forums.nesdev.com/viewtopic.php?p=62273&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899#p62273"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Wed Jun 02, 2010 7:29 am&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile" valign="top">
+				<table align="center" cellspacing="4" width="150">
+			
+				<tbody><tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				<tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/file_002.gif" alt="User avatar" height="69" width="60"></td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Mon Sep 27, 2004 8:33 am<br><b>Posts:</b> 3711<br><b>Location:</b> Central Texas, USA
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody">Yeah, I'm still trying to get my head around this.
+<br>
+<br>OK, there is one CPU clock every 16 master clocks. Therefore, VBL 
+can begin at 16 different positions within a CPU clock. VBL occurs every
+ 312*341 PPU clocks. There are 5 master clocks in a PPU clock, so VBL 
+occurs every 312*341*5=531960 master clocks. This is a multiple of 8, 
+but not 16, so VBL's position within a CPU clock will alternate between 
+two points, each a half CPU clock apart. For a given power/reset, it 
+will never fall on anything other than these two points in a CPU cycle. 
+Since there are 16 points available, 16/2=8 possible states it could 
+power/reset into.
+<br>
+<br>The above was from the CPU's point of view, which would be relevant 
+for things like NMI. From the PPU's point of view, CPU reads/writes can 
+occur in one of 5 positions within a PPU clock, which the CPU constantly
+ cycles through every 5 CPU clocks. Every successive CPU clock begins 
+one master clock (1/5 PPU clock) later within a PPU clock. This would 
+suggest that the state at power/reset is irrelevant from the PPU's view,
+ but PPU clocks aren't the only regular event in the PPU: there's also 
+VBL. As above, after a power/reset, a CPU clock can begin in only two 
+possible positions relative to VBL, each 8 master clocks apart.
+<br>
+<br>I've been working on tests which are able to show how many different
+ power/reset states it can be in, by being able to have it print which 
+one it's on, and never print anything different except after another 
+power/reset.</div>
+
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://forums.nesdev.com/memberlist.php?mode=viewprofile&amp;u=17&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row1">
+
+			<td align="center" valign="middle">
+				<a name="p62287"></a>
+				<b class="postauthor">blargg</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p62287"></a></div><div style="float: right;"><a href="http://forums.nesdev.com/viewtopic.php?p=62287&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899#p62287"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Wed Jun 02, 2010 4:33 pm&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile" valign="top">
+				<table align="center" cellspacing="4" width="150">
+			
+				<tbody><tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				<tr>
+					<td><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/file_002.gif" alt="User avatar" height="69" width="60"></td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Mon Sep 27, 2004 8:33 am<br><b>Posts:</b> 3711<br><b>Location:</b> Central Texas, USA
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody">I just confirmed that there are 8 distinct 
+PPU-CPU synchronizations a PAL NES can power up/reset into, as 
+predicted. Whatever one it uses (at random) doesn't change until you 
+reset/power again. Lovely.</div>
+
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://forums.nesdev.com/memberlist.php?mode=viewprofile&amp;u=17&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr align="center">
+		<td class="cat"><form name="viewtopic" method="post" action="./viewtopic.php?f=2&amp;t=6186&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><span class="gensmall">Display posts from previous:</span> <select name="st" id="st"><option value="0" selected="selected">All posts</option><option value="1">1 day</option><option value="7">7 days</option><option value="14">2 weeks</option><option value="30">1 month</option><option value="90">3 months</option><option value="180">6 months</option><option value="365">1 year</option></select>&nbsp;<span class="gensmall">Sort by</span> <select name="sk" id="sk"><option value="a">Author</option><option value="t" selected="selected">Post time</option><option value="s">Subject</option></select> <select name="sd" id="sd"><option value="a" selected="selected">Ascending</option><option value="d">Descending</option></select>&nbsp;<input class="btnlite" value="Go" name="sort" type="submit"></form></td>
+	</tr>
+	</tbody></table>
+	
+
+	<table cellspacing="1" width="100%">
+	<tbody><tr>
+		<td align="left" valign="middle" nowrap="nowrap">
+		<a href="http://forums.nesdev.com/posting.php?mode=post&amp;f=2&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/button_topic_new.gif" alt="Post new topic" title="Post new topic"></a>&nbsp;<a href="http://forums.nesdev.com/posting.php?mode=reply&amp;f=2&amp;t=6186&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899"><img src="nesdev.com%20%E2%80%A2%20View%20topic%20-%20CPU%20-%20PPU%20clock%20alignment_files/button_topic_reply.gif" alt="Reply to topic" title="Reply to topic"></a>
+		</td>
+		
+			<td class="nav" valign="middle" nowrap="nowrap">&nbsp;Page <strong>1</strong> of <strong>2</strong><br></td>
+			<td class="gensmall" nowrap="nowrap">&nbsp;[ 16 posts ]&nbsp;</td>
+			<td class="gensmall" align="right" width="100%" nowrap="nowrap"><b><a href="#" onclick="jumpto(); return false;" title="Click to jump to page…">Go to page</a> <strong>1</strong><span class="page-sep">, </span><a href="http://forums.nesdev.com/viewtopic.php?f=2&amp;t=6186&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899&amp;start=15">2</a> &nbsp;<a href="http://forums.nesdev.com/viewtopic.php?f=2&amp;t=6186&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899&amp;start=15">Next</a></b></td>
+		
+	</tr>
+	</tbody></table>
+
+</div>
+
+<div id="pagefooter"></div>
+
+<br clear="all">
+<table class="tablebg" style="margin-top: 5px;" cellpadding="0" cellspacing="1" width="100%">
+	<tbody><tr>
+		<td class="row1">
+			<p class="breadcrumbs"><a href="http://forums.nesdev.com/index.php?sid=5a341bc15baaa2ca7fe66ea8a4b09899">Board index</a> » <a href="http://forums.nesdev.com/viewforum.php?f=24&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899">NES / Famicom</a> » <a href="http://forums.nesdev.com/viewforum.php?f=2&amp;sid=5a341bc15baaa2ca7fe66ea8a4b09899">NESdev</a></p>
+			<p class="datetime">All times are UTC - 7 hours </p>
+		</td>
+	</tr>
+	</tbody></table>
+	<br clear="all">
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr>
+		<td class="cat"><h4>Who is online</h4></td>
+	</tr>
+	<tr>
+		<td class="row1"><p class="gensmall">Users browsing this forum: No registered users and 0 guests</p></td>
+	</tr>
+	</tbody></table>
+
+
+<br clear="all">
+
+<table cellspacing="1" width="100%">
+<tbody><tr>
+	<td align="left" valign="top" width="40%" nowrap="nowrap"></td>
+	<td align="right" valign="top" nowrap="nowrap"><span class="gensmall">You <strong>cannot</strong> post new topics in this forum<br>You <strong>cannot</strong> reply to topics in this forum<br>You <strong>cannot</strong> edit your posts in this forum<br>You <strong>cannot</strong> delete your posts in this forum<br>You <strong>cannot</strong> post attachments in this forum<br></span></td>
+</tr>
+</tbody></table>
+
+<br clear="all">
+
+<table cellspacing="0" width="100%">
+<tbody><tr>
+	<td><form method="get" name="search" action="./search.php?sid=5a341bc15baaa2ca7fe66ea8a4b09899"><span class="gensmall">Search for:</span> <input class="post" name="keywords" size="20" type="text"> <input class="btnlite" value="Go" type="submit"><input name="t" value="6186" type="hidden">
+<input name="sf" value="msgonly" type="hidden">
+<input name="sid" value="5a341bc15baaa2ca7fe66ea8a4b09899" type="hidden">
+</form></td>
+	<td align="right">
+	<form method="post" name="jumpbox" action="./viewforum.php?sid=5a341bc15baaa2ca7fe66ea8a4b09899" onsubmit="if(document.jumpbox.f.value == -1){return false;}">
+
+	<table border="0" cellpadding="0" cellspacing="0">
+	<tbody><tr>
+		<td nowrap="nowrap"><span class="gensmall">Jump to:</span>&nbsp;<select name="f" onchange="if(this.options[this.selectedIndex].value != -1){ document.forms['jumpbox'].submit() }">
+
+		
+			<option value="-1">Select a forum</option>
+		<option value="-1">------------------</option>
+			<option value="24">NES / Famicom</option>
+		
+			<option value="2" selected="selected">&nbsp; &nbsp;NESdev</option>
+		
+			<option value="3">&nbsp; &nbsp;NESemdev</option>
+		
+			<option value="21">&nbsp; &nbsp;NES Graphics</option>
+		
+			<option value="6">&nbsp; &nbsp;NES Music</option>
+		
+			<option value="9">&nbsp; &nbsp;NES Hardware and Flash Equipment</option>
+		
+			<option value="22">&nbsp; &nbsp;Homebrew Projects</option>
+		
+			<option value="10">&nbsp; &nbsp;Newbie Help Center</option>
+		
+			<option value="11">&nbsp; &nbsp;FCdev</option>
+		
+			<option value="18">&nbsp; &nbsp;NESdev China</option>
+		
+			<option value="27">&nbsp; &nbsp;NESdev Middle East</option>
+		
+			<option value="19">&nbsp; &nbsp;NESdev International</option>
+		
+			<option value="25">Other</option>
+		
+			<option value="5">&nbsp; &nbsp;General Stuff</option>
+		
+			<option value="4">&nbsp; &nbsp;Membler Industries</option>
+		
+			<option value="12">&nbsp; &nbsp;SNESdev</option>
+		
+			<option value="20">&nbsp; &nbsp;GBDev</option>
+		
+			<option value="23">&nbsp; &nbsp;Other Retro Dev</option>
+		
+			<option value="15">&nbsp; &nbsp;Test Forum</option>
+		
+			<option value="26">Site Issues</option>
+		
+			<option value="13">&nbsp; &nbsp;phpBB Issues</option>
+		
+			<option value="14">&nbsp; &nbsp;Web Issues</option>
+		
+			<option value="16">&nbsp; &nbsp;nesdevWiki</option>
+		
+
+		</select>&nbsp;<input class="btnlite" value="Go" type="submit"></td>
+	</tr>
+	</tbody></table>
+
+	</form>
+</td>
+</tr>
+</tbody></table>
+
+
+</div>
+
+<div id="wrapfooter">
+	
+	<span class="copyright">Powered by <a href="http://www.phpbb.com/">phpBB</a>® Forum Software © phpBB Group
+	</span>
+</div>
+
+
+</body></html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html dir="ltr" class="client-js" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>PPU sprite evaluation - Nesdev wiki</title>
+<meta charset="UTF-8">
+<meta name="generator" content="MediaWiki 1.20.2">
+<link rel="shortcut icon" href="http://wiki.nesdev.com/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://wiki.nesdev.com/w/opensearch_desc.php" title="Nesdev wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://wiki.nesdev.com/w/api.php?action=rsd">
+<link rel="alternate" type="application/atom+xml" title="Nesdev wiki Atom feed" href="http://wiki.nesdev.com/w/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="stylesheet" href="PPU%20sprite%20evaluation%20-%20Nesdev%20wiki_files/load_002.css">
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/monobook/IE60Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="/w/skins/monobook/IE70Fixes.css?303" media="screen" /><![endif]--><style>.mw-collapsible-toggle{float:right} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}
+/* cache key: nesdev_wiki-mw1_:resourceloader:filter:minify-css:7:4250852ed2349a0d4d0fc6509a3e7d4c */.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4C59A6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold}
+/* cache key: nesdev_wiki-mw1_:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="PPU%20sprite%20evaluation%20-%20Nesdev%20wiki_files/load.css">
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: nesdev_wiki-mw1_:resourceloader:filter:minify-css:7:b2ff0e5460847bfbc2a67ca6bf6f3969 */</style>
+
+<script src="PPU%20sprite%20evaluation%20-%20Nesdev%20wiki_files/load_004.php"></script><script src="PPU%20sprite%20evaluation%20-%20Nesdev%20wiki_files/load_005.php"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"PPU_sprite_evaluation","wgTitle":"PPU sprite evaluation","wgCurRevisionId":7026,"wgArticleId":56,"wgIsArticle":true,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":[],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"PPU_sprite_evaluation","wgRestrictionEdit":[],"wgRestrictionMove":[]});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"monobook","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,
+"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","watchToken":false});;},{},{});
+/* cache key: nesdev_wiki-mw1_:resourceloader:filter:minify-js:7:c89fc005766e312c555f83b307d08d63 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax"]);
+}</script><script type="text/javascript" src="PPU%20sprite%20evaluation%20-%20Nesdev%20wiki_files/load_003.php"></script><link href="PPU%20sprite%20evaluation%20-%20Nesdev%20wiki_files/FF2Fixes.css" rel="stylesheet" type="text/css">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-PPU_sprite_evaluation skin-monobook action-view">
+<div id="globalWrapper">
+<div id="column-content"><div id="content" class="mw-body-primary">
+	<a id="top"></a>
+	
+	<h1 id="firstHeading" class="firstHeading"><span dir="auto">PPU sprite evaluation</span></h1>
+	<div id="bodyContent" class="mw-body">
+		<div id="siteSub">From Nesdev wiki</div>
+		<div id="contentSub"></div>
+		<div id="jump-to-nav" class="mw-jump">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+		<!-- start content -->
+<div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><p>During
+ all visible scanlines, the PPU scans through OAM to determine which 
+sprites to render on the next scanline. Sprites found to be within range
+ are copied into the secondary OAM, which is then used to initialize 
+eight internal sprite output units.
+</p><p><i>OAM[n][m]</i> below refers to the byte at offset <i>4*n + m</i> within OAM, i.e. OAM byte <i>m</i> (0-3) of sprite <i>n</i> (0-63).
+</p><p>During each pixel clock (341 total per scanline), the PPU accesses OAM in the following pattern:
+</p>
+<ol><li> Cycles 1-64: Secondary OAM (32-byte buffer for current sprites 
+on scanline) is initialized to $FF - attempting to read $2004 will 
+return $FF. Internally, the clear operation is implemented by reading 
+from the OAM and writing into the secondary OAM as usual, only a signal 
+is active that makes the read always return $FF.
+</li><li> Cycles 65-256: Sprite evaluation
+<ul><li> <i>On odd cycles, data is read from (primary) OAM</i>
+</li><li> <i>On even cycles, data is written to secondary OAM (unless 
+writes are inhibited, in which case it will read the value in secondary 
+OAM instead)</i>
+</li><li>1. Starting at n = 0, read a sprite's Y-coordinate (OAM[n][0], 
+copying it to the next open slot in secondary OAM (unless 8 sprites have
+ been found, in which case the write is ignored).
+<ul><li>1a. If Y-coordinate is in range, copy remaining bytes of sprite data (OAM[n][1] thru OAM[n][3]) into secondary OAM.
+</li></ul>
+</li><li>2. Increment n
+<ul><li>2a. If n has overflowed back to zero (all 64 sprites evaluated), go to 4
+</li><li>2b. If less than 8 sprites have been found, go to 1
+</li><li>2c. If exactly 8 sprites have been found, disable writes to secondary OAM. This causes sprites in back to drop out.
+</li></ul>
+</li><li>3. Starting at m = 0, evaluate OAM[n][m] as a Y-coordinate.
+<ul><li>3a. If the value is in range, set the sprite overflow flag in 
+$2002 and read the next 3 entries of OAM (incrementing 'm' after each 
+byte and incrementing 'n' when 'm' overflows); if m = 3, increment n
+</li><li>3b. If the value is not in range, increment n <b>and</b> m (without carry). If n overflows to 0, go to 4; otherwise go to 3
+<ul><li><i>The m increment is a hardware bug - if only n was 
+incremented, the overflow flag would be set whenever more than 8 sprites
+ were present on the same scanline, as expected.</i>
+</li></ul>
+</li></ul>
+</li><li>4. Attempt (and fail) to copy OAM[n][0] into the next free slot
+ in secondary OAM, and increment n (repeat until HBLANK is reached)
+</li></ul>
+</li><li> Cycles 257-320: Sprite fetches (8 sprites total, 8 cycles per sprite)
+<ul><li>1-4: Read the Y-coordinate, tile number, attributes, and X-coordinate of the selected sprite from secondary OAM
+</li><li>5-8: Read the X-coordinate of the selected sprite from secondary OAM 4 times (while the PPU fetches the sprite tile data)
+</li><li> For the first empty sprite slot, this will consist of sprite 
+#63's Y-coordinate followed by 3 $FF bytes; for subsequent empty sprite 
+slots, this will be four $FF bytes
+</li></ul>
+</li><li>Cycles 321-340+0: Background render pipeline initialization
+<ul><li> Read the first byte in secondary OAM (while the PPU fetches the first two background tiles for the next scanline)
+</li></ul>
+</li></ol>
+<p>This pattern was determined by doing carefully timed reads from $2004
+ using various sets of sprites, and simulation in Visual 2C02 has 
+subsequently confirmed this behavior.
+</p>
+<h2> <span class="mw-headline" id="Sprite_overflow_bug"> Sprite overflow bug </span></h2>
+<p>During sprite evaluation, if eight in-range sprites have been found 
+so far, the sprite evaluation logic continues to scan the primary OAM 
+looking for one more in-range sprite to determine whether to set the 
+sprite overflow flag. The first such check correctly checks the y 
+coordinate of the next OAM entry, but after that the logic breaks and 
+starts evaluating the tile number/attributes/X-coordinates of subsequent
+ OAM entries as Y-coordinates (due to incorrectly incrementing m when 
+moving to the next sprite). This results in inconsistent sprite overflow
+ behavior showing both false positives and false negatives.
+</p>
+<h3> <span class="mw-headline" id="Cause_of_the_sprite_overflow_bug"> Cause of the sprite overflow bug </span></h3>
+<p>After investigation in <a href="http://wiki.nesdev.com/w/index.php/Visual_2C02" title="Visual 2C02">Visual 2C02</a>,
+ the culprit of the sprite overflow bug appears to be the write disable 
+signal that goes high after eight in-range sprites have been found (to 
+prevent further updates to the secondary OAM), along with an error in 
+the sprite evaluation logic.
+</p><p>As seen above, a side effect of the OAM write disable signal is 
+to turn writes to the secondary OAM into reads from it. Once eight 
+in-range sprites have been found, the value being read during write 
+cycles from that point on is the y coordinate of the first sprite copied
+ into the secondary OAM. Due to a logic error, the result of comparing 
+this y coordinate to the current scanline number (which will always 
+yield "in range", since the sprite would have had to be in range to get 
+copied into the secondary OAM) is allowed to influence the sprite 
+address incrementation logic, causing the glitchy updates to the sprite 
+address seen above (due to how the timing works out). Once one more 
+sprite has been found, another signal prevents the comparison from 
+influencing the sprite address incrementation logic, and the bug is no 
+longer in effect.
+</p>
+<h2> <span class="mw-headline" id="Notes"> Notes </span></h2>
+<ul><li><a href="http://wiki.nesdev.com/w/index.php/Visual_2C02" title="Visual 2C02">Visual 2C02</a> might be helpful when trying to understand how the algorithm operates and what the precise timings are.
+</li><li>The <a href="http://wiki.nesdev.com/w/index.php/PPU_sprite_priority" title="PPU sprite priority">sprite priority</a>
+ system has a quirk when the background, a front-priority sprite, and a 
+back-priority sprite are in the same area. Games such as Super Mario 
+Bros. 3 take advantage of this.
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor visited node count: 11/1000000
+Preprocessor generated node count: 16/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key nesdev_wiki-mw1_:pcache:idhash:56-0!*!0!!*!*!* and timestamp 20140411230210 -->
+</div><div class="printfooter">
+Retrieved from "<a href="http://wiki.nesdev.com/w/index.php?title=PPU_sprite_evaluation&amp;oldid=7026">http://wiki.nesdev.com/w/index.php?title=PPU_sprite_evaluation&amp;oldid=7026</a>"</div>
+		<div id="catlinks" class="catlinks catlinks-allhidden"></div>		<!-- end content -->
+				<div class="visualClear"></div>
+	</div>
+</div></div>
+<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+				<li id="ca-nstab-main" class="selected"><a href="http://wiki.nesdev.com/w/index.php/PPU_sprite_evaluation" primary="1" context="subject" title="View the content page [alt-shift-c]" accesskey="c">Page</a></li>
+				<li id="ca-talk"><a href="http://wiki.nesdev.com/w/index.php/Talk:PPU_sprite_evaluation" primary="1" context="talk" title="Discussion about the content page [alt-shift-t]" accesskey="t">Discussion</a></li>
+				<li id="ca-viewsource"><a href="http://wiki.nesdev.com/w/index.php?title=PPU_sprite_evaluation&amp;action=edit" primary="1" title="This page is protected.
+You can view its source [alt-shift-e]" accesskey="e">View source</a></li>
+				<li id="ca-history"><a href="http://wiki.nesdev.com/w/index.php?title=PPU_sprite_evaluation&amp;action=history" rel="archives" title="Past revisions of this page [alt-shift-h]" accesskey="h">History</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-createaccount"><a href="http://wiki.nesdev.com/w/index.php?title=Special:UserLogin&amp;returnto=PPU+sprite+evaluation&amp;type=signup">Create account</a></li>
+				<li id="pt-login"><a href="http://wiki.nesdev.com/w/index.php?title=Special:UserLogin&amp;returnto=PPU+sprite+evaluation" title="You are encouraged to log in; however, it is not mandatory [alt-shift-o]" accesskey="o">Log in</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+<a href="http://wiki.nesdev.com/w/index.php/Nesdev_Wiki" style="background-image: url(/w/skins/common/images/NESdevWikiLogo7.png);" title="Visit the main page"></a>
+	</div>
+	<div class="generated-sidebar portlet" id="p-navigation">
+		<h5>Navigation</h5>
+		<div class="pBody">
+			<ul>
+				<li id="n-Nesdev-main-page"><a href="http://wiki.nesdev.com/w/index.php/Nesdev">Nesdev main page</a></li>
+				<li id="n-Wiki-main-page"><a href="http://wiki.nesdev.com/w/index.php/Nesdev_Wiki">Wiki main page</a></li>
+				<li id="n-NES-reference-guide"><a href="http://wiki.nesdev.com/w/index.php/NES_reference_guide">NES reference guide</a></li>
+				<li id="n-Programming-guide"><a href="http://wiki.nesdev.com/w/index.php/Programming_guide">Programming guide</a></li>
+				<li id="n-Projects"><a href="http://wiki.nesdev.com/w/index.php/Projects">Projects</a></li>
+				<li id="n-Offline-HTML-version"><a href="http://wiki.nesdev.com/w/nesdevwiki_2014-03-13.zip" rel="nofollow">Offline HTML version</a></li>
+				<li id="n-NESdev-BBS"><a href="http://forums.nesdev.com/" rel="nofollow">NESdev BBS</a></li>
+				<li id="n-.23NESdev"><a href="http://wiki.nesdev.com/w/index.php/NESdev_IRC_channel">#NESdev</a></li>
+				<li id="n-recentchanges"><a href="http://wiki.nesdev.com/w/index.php/Special:RecentChanges" title="A list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/w/index.php" id="searchform">
+				<input name="title" value="Special:Search" type="hidden">
+				<input placeholder="Search" autocomplete="off" name="search" title="Search Nesdev wiki [alt-shift-f]" accesskey="f" id="searchInput" type="search">
+				<input name="go" value="Go" title="Go to a page with this exact name if exists" id="searchGoButton" class="searchButton" type="submit">&nbsp;
+				<input name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton" type="submit">
+			</form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="http://wiki.nesdev.com/w/index.php/Special:WhatLinksHere/PPU_sprite_evaluation" title="A list of all wiki pages that link here [alt-shift-j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="http://wiki.nesdev.com/w/index.php/Special:RecentChangesLinked/PPU_sprite_evaluation" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+				<li id="t-specialpages"><a href="http://wiki.nesdev.com/w/index.php/Special:SpecialPages" title="A list of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+				<li id="t-print"><a href="http://wiki.nesdev.com/w/index.php?title=PPU_sprite_evaluation&amp;printable=yes" rel="alternate" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li>
+				<li id="t-permalink"><a href="http://wiki.nesdev.com/w/index.php?title=PPU_sprite_evaluation&amp;oldid=7026" title="Permanent link to this revision of the page">Permanent link</a></li>
+			</ul>
+		</div>
+	</div>
+</div><!-- end of the left (by default at least) column -->
+<div class="visualClear"></div>
+<div id="footer">
+	<div id="f-poweredbyico">
+		<a href="http://www.mediawiki.org/"><img src="PPU%20sprite%20evaluation%20-%20Nesdev%20wiki_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" height="31" width="88"></a>
+	</div>
+	<ul id="f-list">
+		<li id="lastmod"> This page was last modified on 17 July 2013, at 11:40.</li>
+		<li id="viewcount">This page has been accessed 7,954 times.</li>
+		<li id="privacy"><a href="http://wiki.nesdev.com/w/index.php/Nesdev_wiki:Privacy_policy" title="Nesdev wiki:Privacy policy">Privacy policy</a></li>
+		<li id="about"><a href="http://wiki.nesdev.com/w/index.php/Nesdev_wiki:About" title="Nesdev wiki:About">About Nesdev wiki</a></li>
+		<li id="disclaimer"><a href="http://wiki.nesdev.com/w/index.php/Nesdev_wiki:General_disclaimer" title="Nesdev wiki:General disclaimer">Disclaimers</a></li>
+	</ul>
+</div>
+</div>
+<script>if(window.mw){
+mw.loader.state({"site":"loading","user":"missing","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.user","mediawiki.page.ready","mediawiki.searchSuggest"], null, true);
+}</script><script type="text/javascript" src="PPU%20sprite%20evaluation%20-%20Nesdev%20wiki_files/load_002.php"></script>
+<script src="PPU%20sprite%20evaluation%20-%20Nesdev%20wiki_files/load.php"></script>
+<!-- Served in 0.130 secs. --><div class="suggestions" style="display: none; font-size: 11.4667px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html>
