@@ -50,64 +50,434 @@
 			Therefore, we only have a total of 4 bits to represent a colour (16 total colours)
 			
 _____________________________________________________________________________________________________________________________________________________________
+
+
+
+				 .--\/--.					 
+		  R/W -> |01  40| -- +5
+		   D0 <> |02  39| -> ALE
+		   D1 <> |03  38| <> AD0
+		   D2 <> |04  37| <> AD1
+		   D3 <> |05  36| <> AD2
+		   D4 <> |06  35| <> AD3
+		   D5 <> |07  34| <> AD4
+		   D6 <> |08  33| <> AD5
+		   D7 <> |09  32| <> AD6
+		   A2 -> |10  31| <> AD7
+		   A1 -> |11  30| -> A8
+		   A0 -> |12  29| -> A9
+		  /CS -> |13  28| -> A10
+		 EXT0 <> |14  27| -> A11
+		 EXT1 <> |15  26| -> A12
+		 EXT2 <> |16  25| -> A13
+		 EXT3 <> |17  24| -> /RD
+		  CLK -> |18  23| -> /WR
+		 /INT <- |19  22| <- /RST
+		  GND -- |20  21| -> VOUT
+				 `------'
+		 
 */
 
-module ppu( mainClk , cRegs);
-	input mainClk;
+`define BYTE reg[7:0]
+// 1 ppu frame = 89342 ppu clock cycles
+// master clock speed 21.477272  (+-) 40 Hz
+// ppu clock speed = 21.477272 / 4.0
+
+module ppu(
+			input  masterClk,
+			input  rst, 
+			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			// Transfer data from/to the Cartridge:
+			// the 14 pins AD0 - AD7 and A8 - A13 for the address bus
+			// the 8 pins AD0 - AD7 are also used to transfer the data
+			inout  reg AD0, 
+			inout  reg AD1,
+			inout  reg AD2,
+			inout  reg AD3,
+			inout  reg AD4,
+			inout  reg AD5,
+			inout  reg AD6,
+			inout  reg AD7,
+			output reg A8,
+			output reg A9,
+			output reg A10,
+			output reg A11,
+			output reg A12,
+			output reg A13,
+			
+			output reg RD,
+			output reg WR,
+			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			// Transfer data from/to the CPU:
+			// Data bus
+			inout  reg D0,
+			inout  reg D1,
+			inout  reg D2,
+			inout  reg D3,
+			inout  reg D4,
+			inout  reg D5,
+			inout  reg D6,
+			inout  reg D7,
+			// Choose Which register using these 3 inputs:
+			input  A0,	// Connected to CPU A0
+			input  A1,  // Connected to CPU A1
+			input  A2,  // Connected to CPU A2
+			// Indicate whether the PPU is reading or writing to CPU
+			input  RD_WR,  // 0 write, 1 read
+			// connected to CPU NMI pin:
+			output reg INT,
+			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			output reg ALE,
+			output reg vout, 
+			input  CS,
+			inout  EXT0,
+			inout  EXT1,
+			inout  EXT2,
+			inout  EXT3,
+			);
 	wire clk;
+	ppuClockDivider clkdiv( masterClk , clk );
+
+	BYTE cRegs[0:7];
+	`define PPUCTRL   cRegs[0]
+	`define PPUMASK   cRegs[1]
+	`define PPUSTATUS cRegs[2]
+	`define OAMADDR   cRegs[3]
+	`define OAMDATA   cRegs[4]
+	`define PPUSCROLL cRegs[5]
+	`define PPUADDR   cRegs[6]
+	`define PPUDATA   cRegs[7]
 	
-	ppuClockDivider( mainClk , clk );
-	input reg [7:0]cRegs[0:7];		/*	8 control registers that are used to control the PPU they are accessed  
-										from the CPU's address space in the addresses $2000 through $2007
-									*/
-	reg [7:0]sprite_RAM [0:255];	/*	used for sprite attribute storage
-										it is divided among 64 sprites each of 4 bytes: (only 8 per scan line)
-											byte 0:		Y it is used to specify the row (from the top of the screen)
-											byte 1:		the index of the sprite(tile) in the pattern table
-											byte 2:		bit 0,1:-		the upper 2 colour bits
-														bit 2,3,4:-		unknown
-														bit 5:-			sprite priority:	0= High priority, in front of nametables
-																							1= Low priority, behind nametables
-														bit 6:-			Horizontal flip
-														bit 7:-			Vertical flip			
-											byte 3:		X it is used to specify the column (index from the from the left side of the screen)
-									*/
-	reg [7:0]palette_RAM [0:31];	/*	used for colour palette storage
+	
+	
+	BYTE sprite_RAM [0:255];	//	to store the sprites
+	BYTE palette_RAM [0:31];	/*	used for colour palette storage
 											16 colours ( 0-15) for background:	bytes 0, 4, 8 and 12 cannot be used
 											16 colours (16-31) for sprites:		bytes 4, 8 and 12 cannot be used
 																				byte 0 defines the global background colour for both sprites and the background.
-											Therefore the actual number of usable colours is 25
 									*/
-									
+	BYTE HScroll;
+	BYTE VScroll;
+	reg [13:0] ppuAddress;
+	`define dataBus {AD7,AD6,AD5,AD4,AD3,AD2,AD1,AD0}
+	`define externalAddressBus {A13,A12,A11,A10,A9,A8,AD7,AD6,AD5,AD4,AD3,AD2,AD1,AD0}
+	`define cpuDataBus {D7,D6,D5,D4,D3,D2,D1,D0}
+	`define regIndex {A2,A1,A0}
+	
+	reg gotFirstWritePPUADDR, gotFirstWritePPUSCROLL;
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
-	initial begin
-		// initializing the ppu
-	end
-	always@(cRegs) begin
-		// deal with the changes in the registers
-	end
-	always@(posedge clk) begin
-					/*
-					// pseudo-code
-					
-					byte nametable[30][32];
-					tile patterntable[256];		// a tile is a 2D array of 2bits
-					color_tile screen[30][32]	// a color_tile is a 2D array of 4bits
-					for( int i=0; i<30; i++)
-						for( int j=0; j<32; j++){
-							for( int k=0; k<8; k++)
-								for( int l=0; l<8; l++){
-									if(patterntable[ nametable[i][j] ][k][l] == 2'b00)
-										screen[i][j][k][l] = transparent;
-									else
-										screen[i][j][k][l] = {attribute_table[i/2][j/2], patterntable[ nametable[i][j] ][k][l]} // concatenation 
-									//	i and j indices of the tile
-									//	k and l indices of pixel within a tile
-									}
-											
-							}
-						}
-					*/
+	
+	
+	// Subroutines for the sprite ram
+	task GetSpriteIndex;
+		input [7:0] spriteNumber;
+		output [7:0] patternTableIndex;
+		begin
+			patternTableIndex = sprite_RAM[(spriteNumber << 2'b10) + 1'd1];
+		end
+	endtask
+	task GetY;
+		input [7:0] spriteNumber;
+		output [7:0] Y;
+		begin
+			Y = sprite_RAM[spriteNumber << 2'b10];
+		end
+	endtask
+	task GetX;
+		input [7:0] spriteNumber;
+		output [7:0] X;
+		begin
+			X = sprite_RAM[(spriteNumber << 2'b10) + 1'd3];
+		end
+	endtask
+	task GetUpper2BitsColors;
+		input [7:0] spriteNumber;
+		output [1:0] upperColor;
+		reg [7:0] byte2;
+		begin
+			byte2 = sprite_RAM[(spriteNumber << 2'b10) + 1'd2];
+			upperColor = byte2[1:0]
+		end
+	endtask
+	task IsLowPriority;
+		input [7:0] spriteNumber;
+		output pri;
+		reg [7:0] byte2;
+		begin
+			byte2 = sprite_RAM[(spriteNumber << 2'b10) + 1'd2];
+			pri = byte2[1'd5]
+		end
+	endtask
+	task IsHorizontallyFlipped;
+		input [7:0] spriteNumber;
+		output h;
+		reg [7:0] byte2;
+		begin
+			byte2 = sprite_RAM[(spriteNumber << 2'b10) + 1'd2];
+			h = byte2[1'd6]
+		end
+	endtask
+	task IsVerticallyFlipped;
+		input [7:0] spriteNumber;
+		output v;
+		reg [7:0] byte2;
+		begin
+			byte2 = sprite_RAM[(spriteNumber << 2'b10) + 1'd2];
+			v = byte2[1'd7]
+		end
+	endtask
+	
+	// Subroutines for PPUCTRL
+	task GetBaseNameTableAddress;
+		output [15:0]ntaddr;
+		reg [1:0]ntindex;
+		BYTE temp;
+		begin
+			temp = PPUCTRL;
+			ntindex = temp[1:0];
+			ntaddr = 4'h2000 + (ntindex * 4'h0400);
+		end
+	endtask
+	task IsNMIEnabled;
+		output r;
+		BYTE temp;
+		begin
+			temp = PPUCTRL;
+			r = temp[1'd7];
+		end
+	endtask
+	task GetSpritePatternTableAddress;
+		output [15:0]ptaddr;
+		BYTE temp;
+		begin
+			temp = PPUCTRL;
+			ptaddr = (temp[3'b011])? 4'h0000:4'h1000;
+		end
+	endtask
+	task GetBGPatternTableAddress;
+		output [15:0]ptaddr;
+		BYTE temp;
+		begin
+			temp = PPUCTRL;
+			ptaddr = (!temp[3'b100])? 4'h0000:4'h1000;
+		end
+	endtask
+	task Is8x16;
+		output s;
+		BYTE temp;
+		begin
+			temp = PPUCTRL;
+			s = temp[3'b101];
+		end
+	endtask
+	task GetMasterSlaveSel;
+		output s;
+		BYTE temp;
+		begin
+			temp = PPUCTRL;
+			s = temp[3'b110];
+		end
+	endtask
+	task GetIncrementValue;
+		output [7:0] incValue;
+		BYTE temp;
+		begin
+			temp = PPUCTRL;
+			incValue = (temp[3'b110])? 8'b00100000:8'b00000001;
+		end
+	endtask
+	
+	// Subroutines for PPUMASK
+	task IsGrayScale;
+		output g;
+		BYTE temp;
+		begin
+			temp = PPUMASK;
+			g = temp[3'b000];
+		end
+	endtask
+	task IsShowingBGOnLeft;
+		output g;
+		BYTE temp;
+		begin
+			temp = PPUMASK;
+			g = temp[3'b001];
+		end
+	endtask
+	task IsShowingSpritesOnLeft;
+		output g;
+		BYTE temp;
+		begin
+			temp = PPUMASK;
+			g = temp[3'b010];
+		end
+	endtask
+	task IsShowingBG;
+		output g;
+		BYTE temp;
+		begin
+			temp = PPUMASK;
+			g = temp[3'b011];
+		end
+	endtask
+	task IsShowingSprites;
+		output g;
+		BYTE temp;
+		begin
+			temp = PPUMASK;
+			g = temp[3'b100];
+		end
+	endtask
+	task IsIntensifyRed;
+		output g;
+		BYTE temp;
+		begin
+			temp = PPUMASK;
+			g = temp[3'b101];
+		end
+	endtask
+	task IsIntensifyGreen;
+		output g;
+		BYTE temp;
+		begin
+			temp = PPUMASK;
+			g = temp[3'b110];
+		end
+	endtask
+	task IsIntensifyBlue;
+		output g;
+		BYTE temp;
+		begin
+			temp = PPUMASK;
+			g = temp[3'b111];
+		end
+	endtask
+	
+	// Subroutines for PPUSTATUS
+	task SetVBlank;
+		input r;
+		BYTE temp;
+		begin
+			temp = PPUSTATUS;
+			temp[3'b111] = r;
+			PPUSTATUS = temp;
+			if(IsNMIEnabled())
+				INT = r;
+		end
+	endtask
+	task SetSprite0Hit;
+		input r;
+		BYTE temp;
+		begin
+			temp = PPUSTATUS;
+			temp[3'b110] = r;
+			PPUSTATUS = temp;
+		end
+	endtask
+	task SetSpriteOverFlow;
+		input r;
+		BYTE temp;
+		begin
+			temp = PPUSTATUS;
+			temp[3'b101] = r;
+			PPUSTATUS = temp;
+		end
+	endtask
+	task PPUStatusRead;
+		begin
+			// Reset stuff
+		end
+	endtask
+	
+	task writeOAMData;
+		begin // replace * by condition
+			sprite_RAM[OAMADDR] = OAMDATA;
+			OAMADDR = OAMADDR + GetIncrementValue();
+		end
+	endtask
+	task writeScrollData;
+		begin
+			if(gotFirstWritePPUSCROLL)
+				VScroll = PPUSCROLL;
+			else
+				HScroll = PPUSCROLL;
+			gotFirstWritePPUSCROLL = !gotFirstWritePPUSCROLL;
+		end
+	endtask
+	task writePPUData;
+		begin
+			if( ppuAddress[13:8] == 6'b111111) begin
+				// palette ram
+				palette_ram[ppuAddress[4:0]] = PPUDATA;
+			end
+			else begin
+				externalAddressBus = ppuAddress[13:0];
+				// delay here
+				dataBus = PPUDATA;
+				WR = 1'b0;
+				RD = 1'b1;
+				ppuAddress = ppuAddress + GetIncrementValue();
+			end
+		end
+	endtask
+	task writePPUAddress;
+		begin
+			ppuAddress = (gotFirstWritePPUADDR)? {ppuAddress[15:8] , PPUADDR}:{PPUADDR , ppuAddress[7:0]|8'b00000000};
+			gotFirstWritePPUADDR = !gotFirstWritePPUADDR;
+		end
+	endtask
+	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+	
+	integer i;
+	always@(posedge clk or negedge rst) begin
+		if(~rst) begin // reset all to zero
+			HScroll <= 8'b00000000;
+			VScroll   <= 8'b00000000;
+			ppuAddress <= 4'h0000;
+			for(i=0; i<256; i++)
+				sprite_RAM[i] <= 8'b00000000;
+			for(i=0; i<32; i++)
+				palette_RAM[i] <= 8'b00000000;
+			PPUCTRL   <= 8'b00000000;
+			PPUMASK   <= 8'b00000000;
+			PPUSCROLL <= 8'b00000000;
+			gotFirstWritePPUADDR   <= 1'b0;
+			gotFirstWritePPUSCROLL <= 1'b0;
+			INT <= 1'b0;
+			RD <= 1'b0;
+			WR <= 1'b0;
+		end
+		else begin
+		
+			if(*) begin			// there should be a condition to enable that 
+				if(RD_WR) begin						// Read
+					cpuDataBus = cRegs[regIndex];
+					case (regIndex)
+						3'b010: PPUStatusRead();
+					endcase
+				end
+				else begin							// Write
+						cRegs[regIndex] = cpuDataBus;
+						case (regIndex)
+							3'b100: writeOAMData();		// OAMDATA index
+							3'b101: writeScrollData();	// PPUSCROLL index
+							3'b110: writePPUAddress();	// PPUADDR index
+							3'b111: writePPUData();		// PPUDATA index
+						endcase
+				end
+			end
+			
+			// rendering the scene
+			if(currentScanline == GetY(6'b000000))
+				SetSprite0Hit(1'b1);
+			if(currentScanline == 8)
+				SetVBlank(1'b0);
+			if(currentScanline == 232) begin
+				SetVBlank(1'b1);
+				SetSprite0Hit(1'b0);
+			end
+		end
 	end
 	
 endmodule;
