@@ -78,7 +78,6 @@ ________________________________________________________________________________
 		 
 */
 
-`define BYTE reg[7:0]
 // 1 ppu frame = 89342 ppu clock cycles
 // master clock speed 21.477272  (+-) 40 Hz
 // ppu clock speed = 21.477272 / 4.0
@@ -138,7 +137,7 @@ module ppu(
 	wire clk;
 	ppuClockDivider clkdiv( masterClk , clk );
 
-	BYTE cRegs[0:7];
+	reg[7:0] cRegs[0:7];
 	`define PPUCTRL   cRegs[0]
 	`define PPUMASK   cRegs[1]
 	`define PPUSTATUS cRegs[2]
@@ -150,21 +149,42 @@ module ppu(
 	
 	
 	
-	BYTE sprite_RAM [0:255];	//	to store the sprites
-	BYTE palette_RAM [0:31];	/*	used for colour palette storage
+	reg[7:0] sprite_RAM [0:255];	//	to store the sprites
+	reg[7:0] palette_RAM [0:31];	/*	used for colour palette storage
 											16 colours ( 0-15) for background:	bytes 0, 4, 8 and 12 cannot be used
 											16 colours (16-31) for sprites:		bytes 4, 8 and 12 cannot be used
 																				byte 0 defines the global background colour for both sprites and the background.
 									*/
-	BYTE HScroll;
-	BYTE VScroll;
+	reg[7:0] HScroll;
+	reg[7:0] VScroll;
 	reg [13:0] ppuAddress;
+	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// registers for rendering the BG
+	
+	reg [14:0] VRAM_Address;
+	reg [14:0] VRAM_tempAddress;
+	reg [2:0] fineX_Scroll;
+	reg firstOrSecondWrite;
+	
+	reg [15:0] tile1;
+	reg [15:0] tile2;
+	reg [7:0] pallette1;
+	reg [7:0] pallette2;
+	
+	// registers for rendering the Sprites
+	
+	reg[7:0] secondary_sprite_RAM [0:31];
+	reg[7:0] spritesBitmapRegisters [0:16];
+	
+	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	`define dataBus {AD7,AD6,AD5,AD4,AD3,AD2,AD1,AD0}
 	`define externalAddressBus {A13,A12,A11,A10,A9,A8,AD7,AD6,AD5,AD4,AD3,AD2,AD1,AD0}
 	`define cpuDataBus {D7,D6,D5,D4,D3,D2,D1,D0}
 	`define regIndex {A2,A1,A0}
 	
-	reg gotFirstWritePPUADDR, gotFirstWritePPUSCROLL;
+	reg gotFirstWrite`PPUADDR, gotFirstWrite`PPUSCROLL;
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
 	
 	
@@ -175,21 +195,21 @@ module ppu(
 		begin
 			patternTableIndex = sprite_RAM[(spriteNumber << 2'b10) + 1'd1];
 		end
-	endtask
+	end
 	task GetY;
 		input [7:0] spriteNumber;
 		output [7:0] Y;
 		begin
 			Y = sprite_RAM[spriteNumber << 2'b10];
 		end
-	endtask
+	end
 	task GetX;
 		input [7:0] spriteNumber;
 		output [7:0] X;
 		begin
 			X = sprite_RAM[(spriteNumber << 2'b10) + 1'd3];
 		end
-	endtask
+	end
 	task GetUpper2BitsColors;
 		input [7:0] spriteNumber;
 		output [1:0] upperColor;
@@ -198,7 +218,7 @@ module ppu(
 			byte2 = sprite_RAM[(spriteNumber << 2'b10) + 1'd2];
 			upperColor = byte2[1:0]
 		end
-	endtask
+	end
 	task IsLowPriority;
 		input [7:0] spriteNumber;
 		output pri;
@@ -207,7 +227,7 @@ module ppu(
 			byte2 = sprite_RAM[(spriteNumber << 2'b10) + 1'd2];
 			pri = byte2[1'd5]
 		end
-	endtask
+	end
 	task IsHorizontallyFlipped;
 		input [7:0] spriteNumber;
 		output h;
@@ -216,7 +236,7 @@ module ppu(
 			byte2 = sprite_RAM[(spriteNumber << 2'b10) + 1'd2];
 			h = byte2[1'd6]
 		end
-	endtask
+	end
 	task IsVerticallyFlipped;
 		input [7:0] spriteNumber;
 		output v;
@@ -225,211 +245,211 @@ module ppu(
 			byte2 = sprite_RAM[(spriteNumber << 2'b10) + 1'd2];
 			v = byte2[1'd7]
 		end
-	endtask
+	end
 	
-	// Subroutines for PPUCTRL
+	// Subroutines for `PPUCTRL
 	task GetBaseNameTableAddress;
 		output [15:0]ntaddr;
 		reg [1:0]ntindex;
-		BYTE temp;
+		reg[7:0] temp;
 		begin
-			temp = PPUCTRL;
+			temp = `PPUCTRL;
 			ntindex = temp[1:0];
 			ntaddr = 4'h2000 + (ntindex * 4'h0400);
 		end
-	endtask
+	end
 	task IsNMIEnabled;
 		output r;
-		BYTE temp;
+		reg[7:0] temp;
 		begin
-			temp = PPUCTRL;
+			temp = `PPUCTRL;
 			r = temp[1'd7];
 		end
-	endtask
+	end
 	task GetSpritePatternTableAddress;
 		output [15:0]ptaddr;
-		BYTE temp;
+		reg[7:0] temp;
 		begin
-			temp = PPUCTRL;
+			temp = `PPUCTRL;
 			ptaddr = (temp[3'b011])? 4'h0000:4'h1000;
 		end
-	endtask
+	end
 	task GetBGPatternTableAddress;
 		output [15:0]ptaddr;
-		BYTE temp;
+		reg[7:0] temp;
 		begin
-			temp = PPUCTRL;
+			temp = `PPUCTRL;
 			ptaddr = (!temp[3'b100])? 4'h0000:4'h1000;
 		end
-	endtask
+	end
 	task Is8x16;
 		output s;
-		BYTE temp;
+		reg[7:0] temp;
 		begin
-			temp = PPUCTRL;
+			temp = `PPUCTRL;
 			s = temp[3'b101];
 		end
-	endtask
+	end
 	task GetMasterSlaveSel;
 		output s;
-		BYTE temp;
+		reg[7:0] temp;
 		begin
-			temp = PPUCTRL;
+			temp = `PPUCTRL;
 			s = temp[3'b110];
 		end
-	endtask
+	end
 	task GetIncrementValue;
 		output [7:0] incValue;
-		BYTE temp;
+		reg[7:0] temp;
 		begin
-			temp = PPUCTRL;
+			temp = `PPUCTRL;
 			incValue = (temp[3'b110])? 8'b00100000:8'b00000001;
 		end
-	endtask
+	end
 	
-	// Subroutines for PPUMASK
+	// Subroutines for `PPUMASK
 	task IsGrayScale;
 		output g;
-		BYTE temp;
+		reg[7:0] temp;
 		begin
-			temp = PPUMASK;
+			temp = `PPUMASK;
 			g = temp[3'b000];
 		end
-	endtask
+	end
 	task IsShowingBGOnLeft;
 		output g;
-		BYTE temp;
+		reg[7:0] temp;
 		begin
-			temp = PPUMASK;
+			temp = `PPUMASK;
 			g = temp[3'b001];
 		end
-	endtask
+	end
 	task IsShowingSpritesOnLeft;
 		output g;
-		BYTE temp;
+		reg[7:0] temp;
 		begin
-			temp = PPUMASK;
+			temp = `PPUMASK;
 			g = temp[3'b010];
 		end
-	endtask
+	end
 	task IsShowingBG;
 		output g;
-		BYTE temp;
+		reg[7:0] temp;
 		begin
-			temp = PPUMASK;
+			temp = `PPUMASK;
 			g = temp[3'b011];
 		end
-	endtask
+	end
 	task IsShowingSprites;
 		output g;
-		BYTE temp;
+		reg[7:0] temp;
 		begin
-			temp = PPUMASK;
+			temp = `PPUMASK;
 			g = temp[3'b100];
 		end
-	endtask
+	end
 	task IsIntensifyRed;
 		output g;
-		BYTE temp;
+		reg[7:0] temp;
 		begin
-			temp = PPUMASK;
+			temp = `PPUMASK;
 			g = temp[3'b101];
 		end
-	endtask
+	end
 	task IsIntensifyGreen;
 		output g;
-		BYTE temp;
+		reg[7:0] temp;
 		begin
-			temp = PPUMASK;
+			temp = `PPUMASK;
 			g = temp[3'b110];
 		end
-	endtask
+	end
 	task IsIntensifyBlue;
 		output g;
-		BYTE temp;
+		reg[7:0] temp;
 		begin
-			temp = PPUMASK;
+			temp = `PPUMASK;
 			g = temp[3'b111];
 		end
-	endtask
+	end
 	
-	// Subroutines for PPUSTATUS
+	// Subroutines for `PPUSTATUS
 	task SetVBlank;
 		input r;
-		BYTE temp;
+		reg[7:0] temp;
 		begin
-			temp = PPUSTATUS;
+			temp = `PPUSTATUS;
 			temp[3'b111] = r;
-			PPUSTATUS = temp;
+			`PPUSTATUS = temp;
 			if(IsNMIEnabled())
 				INT = r;
 		end
-	endtask
+	end
 	task SetSprite0Hit;
 		input r;
-		BYTE temp;
+		reg[7:0] temp;
 		begin
-			temp = PPUSTATUS;
+			temp = `PPUSTATUS;
 			temp[3'b110] = r;
-			PPUSTATUS = temp;
+			`PPUSTATUS = temp;
 		end
-	endtask
+	end
 	task SetSpriteOverFlow;
 		input r;
-		BYTE temp;
+		reg[7:0] temp;
 		begin
-			temp = PPUSTATUS;
+			temp = `PPUSTATUS;
 			temp[3'b101] = r;
-			PPUSTATUS = temp;
+			`PPUSTATUS = temp;
 		end
-	endtask
+	end
 	task PPUStatusRead;
 		begin
 			// Reset stuff
 		end
-	endtask
+	end
 	
 	task writeOAMData;
 		begin // replace * by condition
-			sprite_RAM[OAMADDR] = OAMDATA;
-			OAMADDR = OAMADDR + GetIncrementValue();
+			sprite_RAM[`OAMADDR] = `OAMDATA;
+			`OAMADDR = `OAMADDR + GetIncrementValue();
 		end
-	endtask
+	end
 	task writeScrollData;
 		begin
-			if(gotFirstWritePPUSCROLL)
-				VScroll = PPUSCROLL;
+			if(gotFirstWrite`PPUSCROLL)
+				VScroll = `PPUSCROLL;
 			else
-				HScroll = PPUSCROLL;
-			gotFirstWritePPUSCROLL = !gotFirstWritePPUSCROLL;
+				HScroll = `PPUSCROLL;
+			gotFirstWrite`PPUSCROLL = !gotFirstWrite`PPUSCROLL;
 		end
-	endtask
+	end
 	task writePPUData;
 		begin
 			if( ppuAddress[13:8] == 6'b111111) begin
 				// palette ram
-				palette_ram[ppuAddress[4:0]] = PPUDATA;
+				palette_ram[ppuAddress[4:0]] = `PPUDATA;
 			end
 			else begin
 				externalAddressBus = ppuAddress[13:0];
 				// delay here
-				dataBus = PPUDATA;
+				dataBus = `PPUDATA;
 				WR = 1'b0;
 				RD = 1'b1;
 				ppuAddress = ppuAddress + GetIncrementValue();
 			end
 		end
-	endtask
+	end
 	task writePPUAddress;
 		begin
-			ppuAddress = (gotFirstWritePPUADDR)? {ppuAddress[15:8] , PPUADDR}:{PPUADDR , ppuAddress[7:0]|8'b00000000};
-			gotFirstWritePPUADDR = !gotFirstWritePPUADDR;
+			ppuAddress = (gotFirstWrite`PPUADDR)? {ppuAddress[15:8] , `PPUADDR}:{`PPUADDR , ppuAddress[7:0]|8'b00000000};
+			gotFirstWrite`PPUADDR = !gotFirstWrite`PPUADDR;
 		end
-	endtask
+	end
 	
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
 	
-	integer i;
+	integer i,currentCycle,currentScanline;
 	always@(posedge clk or negedge rst) begin
 		if(~rst) begin // reset all to zero
 			HScroll <= 8'b00000000;
@@ -439,44 +459,77 @@ module ppu(
 				sprite_RAM[i] <= 8'b00000000;
 			for(i=0; i<32; i++)
 				palette_RAM[i] <= 8'b00000000;
-			PPUCTRL   <= 8'b00000000;
-			PPUMASK   <= 8'b00000000;
-			PPUSCROLL <= 8'b00000000;
-			gotFirstWritePPUADDR   <= 1'b0;
-			gotFirstWritePPUSCROLL <= 1'b0;
+			`PPUCTRL   <= 8'b00000000;
+			`PPUMASK   <= 8'b00000000;
+			`PPUSCROLL <= 8'b00000000;
+			gotFirstWrite`PPUADDR   <= 1'b0;
+			gotFirstWrite`PPUSCROLL <= 1'b0;
 			INT <= 1'b0;
 			RD <= 1'b0;
 			WR <= 1'b0;
+			currentCycle = 1'b0;
+			currentScanline = 1'b0;
 		end
 		else begin
-		
+
+			// rendering the scene
+			case(currentCycle % 8)
+				0:	begin
+						
+					end
+				1:	begin
+						
+					end
+				2:	begin
+						
+					end
+				3:	begin
+						
+					end
+				4:	begin
+						
+					end
+				5:	begin
+						
+					end
+				6:	begin
+						
+					end
+				7:	begin
+						
+					end
+			endcase
+			
+			if(currentScanline == GetY(6'b000000))
+				SetSprite0Hit(1'b1);
+			if(currentScanline == 261 && currentCycle == 1) begin
+				SetVBlank(1'b0);
+				SetSprite0Hit(1'b0);
+			end
+			if(currentScanline == 241 && currentCycle == 1)
+				SetVBlank(1'b1);
+			currentCycle = (currentCycle + 1) % 341;
+			currentScanline = (currentCycle == 0)? ((currentScanline + 1) % 262):currentScanline;
+			
+			/*
 			if(*) begin			// there should be a condition to enable that 
 				if(RD_WR) begin						// Read
 					cpuDataBus = cRegs[regIndex];
 					case (regIndex)
 						3'b010: PPUStatusRead();
-					endcase
+					end
 				end
 				else begin							// Write
 						cRegs[regIndex] = cpuDataBus;
 						case (regIndex)
-							3'b100: writeOAMData();		// OAMDATA index
-							3'b101: writeScrollData();	// PPUSCROLL index
-							3'b110: writePPUAddress();	// PPUADDR index
-							3'b111: writePPUData();		// PPUDATA index
-						endcase
+							3'b100: writeOAMData();		// `OAMDATA index
+							3'b101: writeScrollData();	// `PPUSCROLL index
+							3'b110: writePPUAddress();	// `PPUADDR index
+							3'b111: writePPUData();		// `PPUDATA index
+						end
 				end
 			end
-			
-			// rendering the scene
-			if(currentScanline == GetY(6'b000000))
-				SetSprite0Hit(1'b1);
-			if(currentScanline == 8)
-				SetVBlank(1'b0);
-			if(currentScanline == 232) begin
-				SetVBlank(1'b1);
-				SetSprite0Hit(1'b0);
-			end
+			*/	
 		end
 	end
 	
